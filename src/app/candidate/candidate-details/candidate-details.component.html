@@ -1,0 +1,387 @@
+<div class="canDetails">
+  <mat-card class="candidatedetailcard">
+    <h2>CANDIDATE DETAILS</h2>
+    <div class="btngrp">
+
+      <!-- <button id="btn" mat-raised-button routerLink="/candidateList">Add Candidate
+        <mat-icon>add</mat-icon></button> -->
+      <button *ngIf="IsAccessToEdit" id="btn" mat-raised-button (click)="fileInput.click()">Choose File
+        <mat-icon>insert_drive_file</mat-icon></button>
+      <button id="btn" mat-raised-button (click)="DownloadExcel()">Download Excel
+        <mat-icon>download</mat-icon>
+      </button>
+
+
+      <button id="btn" mat-raised-button (click)="toggleFormVisibility()" >Filters
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <a (click)="exportEmptyExcel()" style="text-decoration: underline; color: blue; cursor: pointer;">Download Candidate Template
+      </a>
+    </div>
+    <!-- File Input -->
+    <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"
+      accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+
+
+
+        <div class="nav" fxLayout="row" fxLayoutGap="10px" *ngIf="isFormVisible">
+          <form [formGroup]="filterForm">
+            <!-- candidateUid -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Candidate UID</mat-label>
+              <input matInput type="text" formControlName="candidateUid" (keyup)="customFilter()">
+            </mat-form-field>
+            <!-- Name -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Name</mat-label>
+              <input #candidateName matInput type="text" formControlName="candidateName" (keyup)="customFilter()">
+              <mat-icon *ngIf="candidateName.value" matSuffix color="warn"
+                (click)="clearFormField('candidateName')">close</mat-icon>
+            </mat-form-field>
+            <!-- Dob  -->
+
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Dob Range</mat-label>
+              <mat-date-range-input [rangePicker]="dobpicker" [max]="maxDate">
+                <input matStartDate formControlName="dobFrom">
+                <input #dob matEndDate formControlName="dobTo" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!dob.value" matIconSuffix [for]="dobpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #dobpicker></mat-date-range-picker>
+              <mat-icon *ngIf="dob.value" matSuffix color="warn"
+                (click)="[clearFormField('dobFrom'),clearFormField('dobTo')]">close</mat-icon>
+
+            </mat-form-field>
+
+            <!-- Gender -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender" (selectionChange)="customFilter()">
+                <mat-option value="">None</mat-option>
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- Skills -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Skills</mat-label>
+              <input matInput type="text" formControlName="skills" (keyup)="customFilter()">
+            </mat-form-field>
+            <!-- Joining Date -->
+
+            <mat-form-field class="filterRow-form-field_DtRange" >
+              <mat-label>Joining Date</mat-label>
+              <mat-date-range-input [rangePicker]="joiningDatepicker" [max]="maxDate">
+                <input matStartDate formControlName="joiningDateFrom">
+                <input  #jdr matEndDate formControlName="joiningDateTo" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!jdr.value" matIconSuffix [for]="joiningDatepicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #joiningDatepicker></mat-date-range-picker>
+
+              <mat-icon *ngIf="jdr.value" matSuffix color="warn"
+                (click)="[clearFormField('joiningDateFrom'),clearFormField('joiningDateTo')]">close</mat-icon>
+            </mat-form-field>
+
+            <!-- location -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>location</mat-label>
+              <input matInput type="text" formControlName="location" (keyup)="customFilter()">
+            </mat-form-field>
+            <!-- Status -->
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status" (selectionChange)="customFilter()">
+                <mat-option value="">None</mat-option>
+                <mat-option *ngFor="let status of statusList" value="{{status.statusName}}">
+                  {{ status.statusName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- Is Internal-->
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Is Internal</mat-label>
+              <mat-select formControlName="isInternal" (selectionChange)="customFilter()">
+                <mat-option value="">None</mat-option>
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-icon matSuffix color="warn" (click)="restCustomFilter()" matTooltip="Clear filters">close</mat-icon>
+          </form>
+        </div>
+
+
+
+    <!-- MAT TABLE -->
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <!-- candidateUid Column -->
+          <ng-container matColumnDef="candidateUid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Candidate UID
+            </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell-email">
+              <div *ngIf="!row.isEditing">
+                {{row.candidateUid}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Candidate UID</mat-label>
+                  <input matInput [(ngModel)]="row.candidateUid">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+          <!-- candidateName Column -->
+          <ng-container matColumnDef="candidateName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Candidate Name
+              <!-- <mat-icon [matMenuTriggerFor]="CFM">more_vert</mat-icon> -->
+            </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell-email">
+              <div matTooltip="{{row.candidateName}}" *ngIf="!row.isEditing">
+                {{row.candidateName}}
+              </div>
+              <div *ngIf="row.isEditing" style="size: 7px;">
+                <mat-form-field>
+                  <mat-label>Candidate Name</mat-label>
+                  <input matInput [(ngModel)]="row.candidateName">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+
+
+          <!-- dob Column -->
+          <ng-container matColumnDef="dob">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DOB </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.dob|date:'dd/MM/yyyy'}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Select Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" [(ngModel)]="row.dob">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- mobileNo Column -->
+          <ng-container matColumnDef="mobileNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Number </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.mobileNo}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Mobile Number</mat-label>
+                  <input matInput [(ngModel)]="row.mobileNo">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell-email">
+              <div *ngIf="!row.isEditing">
+                {{row.email}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput disabled [(ngModel)]="row.email">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- gender Column -->
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.gender}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Gender</mat-label>
+                  <mat-select [(ngModel)]="row.gender">
+                    <mat-option value='Male' selected="row.gender === 'Male'">Male</mat-option>
+                    <mat-option value='Female' selected="row.gender === 'Female'">Female</mat-option>
+
+                  </mat-select>
+
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- skills Column -->
+          <ng-container matColumnDef="skills">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Skills </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.skills}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="row.skills">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- joiningDate Column -->
+          <ng-container matColumnDef="joiningDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Joining Date </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.joiningDate|date:'dd/MM/yyyy'}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Select Joining Date</mat-label>
+                  <input matInput [matDatepicker]="picker2" [(ngModel)]="row.joiningDate">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- location Column -->
+          <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isEditing">
+                {{row.location}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="row.location">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- address Column -->
+          <ng-container matColumnDef="address">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+            <td mat-cell *matCellDef="let row" class="address-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.address}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="row.address">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- pincode Column -->
+          <ng-container matColumnDef="pincode">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Pincode </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.pincode}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <input matInput [(ngModel)]="row.pincode">
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.status}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Status</mat-label>
+                  <mat-select [(ngModel)]="row.status">
+                    <mat-option *ngFor="let status of statusList" [value]="status.statusName"
+                      selected="row.status === status.statusName">
+                      {{ status.statusName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- isInternal Column -->
+          <ng-container matColumnDef="isInternal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> IsInternal </th>
+            <td mat-cell *matCellDef="let row" class="internal">
+              <div *ngIf="!row.isEditing">
+                {{row.isInternal?"Yes":"No"}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <p><mat-checkbox [(ngModel)]="row.isInternal"
+                    matTooltip="Check if Candidate is a internal resource">IsInternal</mat-checkbox></p>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row" class="actions-cell">
+              <!-- primary actions -->
+              <ng-container *ngIf="!row.isEditing">
+                <button mat-icon-button color="primary" (click)="selectRow(row)" matTooltip="Update Candidate detail/s">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteDetails(row)" matTooltip="Delete Candidate">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+              <!-- After Update enabled -->
+              <ng-container *ngIf="row.isEditing">
+                <button mat-icon-button (click)="UpdateCandidateData(row)" matTooltip="Save Changes"
+                  matTooltipPosition="left" color="primary">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-icon-button (click)="cancelUpdate(row)" matTooltip="Cancel Changes" matTooltipPosition="left"
+                  color="warn">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </ng-container>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter</td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator id="paginator" [pageSize]="25" [pageSizeOptions]="[5,15, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+</div>

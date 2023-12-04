@@ -1,0 +1,167 @@
+.candidatedetailcard
+{
+margin-top: 6%;
+}
+h2 {
+  padding-top: 1%;
+  text-align: center;
+  color: #006E74;
+
+}
+
+.btngrp {
+  justify-content: center;
+  display: flex;
+  margin: 0 2% 0;
+}
+
+#btn {
+  background-color: #006E74;
+  color: white;
+  margin: 0 2% 2%;
+}
+
+.mdc-data-table__header-row {
+  height: 45px;
+  background-color: #006E74;
+  text-align: center;
+
+  .mdc-data-table__header-cell {
+    color: white;
+    font-size: 15px;
+  }
+}
+
+.mdc-data-table__row {
+  height: 30px;
+  background-color: white;
+  
+}
+
+.table-container {
+  display: block;
+  width: 100%;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+}
+
+.mat-column-candidateUid,
+.mat-column-candidateName,
+.mat-column-dob,
+.mat-column-mobileNo,
+.mat-column-email,
+.mat-column-gender,
+.mat-column-skills,
+.mat-column-joiningDate,
+.mat-column-location,
+.mat-column-address,
+.mat-column-pincode,
+.mat-column-status,
+.mat-column-isInternal,
+.mat-column-actions {
+  border: 0.2px solid currentColor;
+  font-size: 12px;
+}
+
+.actions-cell {
+  display: flex;
+}
+
+::ng-deep.mat-sort-header-arrow {
+  opacity: 1 !important;
+  color: white;
+  size: 12px;
+}
+
+.nav {
+  padding-left: 20px;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--outlined) {
+  background-color: transparent !important;
+}
+
+.search-form-field {
+  height: 60px;
+}
+
+.mat-mdc-form-field-icon-prefix>.mat-icon,
+.mat-mdc-form-field-icon-suffix>.mat-icon {
+  padding: 0px;
+  box-sizing: content-box;
+}
+
+.filterRow-form-field_DtRange {
+  width: 160px;
+  height: 70px;
+  padding-right: 20px;
+  display: inline-flex;
+
+  /* FLOATING FIELD  ALIGNMENT */
+  .mdc-floating-label {
+    font-size: 14px;
+  }
+
+  .mat-mdc-input-element {
+    font-size: 10px;
+    padding: 0;
+  }
+}
+
+.filterRow-form-field {
+  width: 125px;
+  height: 70px;
+  padding-right: 20px;
+
+  display: inline-flex;
+
+  .mat-icon {
+    font-size: 15px;
+    color: rgb(209, 1, 1);
+    padding-bottom: 15px;
+    padding-right: 0;
+    background-color: transparent;
+  }
+
+  /* INPUT ELEMENT RESIZE AND ALIGNMENT */
+  .mat-mdc-input-element {
+    font-size: 12px;
+    padding-bottom: 5%;
+  }
+
+  /* SELECT OPTION ELEMENT RESIZE AND ALIGNMENT */
+
+  .mat-mdc-select-value {
+    font-size: 14px;
+  }
+
+  .mat-mdc-option {
+
+    font-size: 13px;
+  }
+
+
+  /* INPUT FIELD  ALIGNMENT */
+
+  .mat-mdc-text-field-wrapper {
+    height: auto;
+    flex: content;
+    padding-bottom: 40px;
+  }
+
+  /* FLOATING FIELD  ALIGNMENT */
+  .mdc-floating-label {
+    font-size: 14px;
+  }
+
+}
+
+mat-accordion {
+  padding: 2%;
+}
+@media screen and (max-width: 600px){
+.canDetails{
+  padding-top: 10%;
+}
+}
+

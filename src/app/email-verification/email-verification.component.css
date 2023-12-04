@@ -1,0 +1,31 @@
+.verification-card {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 50vh;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+
+  }
+.email{
+  padding-top: 15%;
+}
+  .verification-card mat-card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .verification-card p {
+    margin-bottom: 20px;
+  }
+
+  .verification-card mat-form-field {
+    width: 100%;
+  }
+
+  .verification-card button {
+    width: 100%;
+  }

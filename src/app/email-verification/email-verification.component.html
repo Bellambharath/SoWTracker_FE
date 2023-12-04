@@ -1,0 +1,19 @@
+<div class="email">
+  <mat-card class="verification-card">
+    <mat-card-header>
+      <mat-card-title>Email Verification</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Please enter your email address to receive a verification link.</p>
+      <form (submit)="submitForm(email)">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" required [(ngModel)]="email" name="email" placeholder="Enter your email address">
+        </mat-form-field>
+        <button mat-raised-button color="primary"type="submit">Verify</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

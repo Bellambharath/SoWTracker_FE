@@ -1,0 +1,204 @@
+.toolbar-main {
+  background-color: #006E74;
+  color: white;
+  height: 65px;
+  z-index: 9999;
+  position: fixed;
+}
+
+#ust {
+  font-weight: 400;
+  padding-right: 5px;
+  cursor: default;
+
+}
+
+#sotracker {
+  font-weight: 300;
+  padding-top: 1px;
+  cursor: default;
+
+}
+
+#item1 {
+  padding-left: 100px;
+}
+
+#item1,
+#item2,
+#item3,
+#item4,
+#item5,
+#item6,
+#item7 {
+  font-weight: 300;
+  justify-content: flex-end;
+  margin-top: 20px;
+  position: relative;
+}
+
+#item8 {
+  display: flex;
+  font-weight: 300;
+  position: fixed;
+  right: 0;
+  margin-top: 15px;
+  font-size: 80%;
+}
+
+.mat-drawer {
+  background-color: #006E74;
+  color: white;
+  width: max-content;
+}
+
+.full-width {
+  height: 100vh;
+}
+
+#drawer {
+  width: max-content;
+  transition: width 0.3s;
+}
+
+.expanded {
+  width: 100%;
+}
+
+.vertical-icons {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  padding-right: 15px;
+  gap: 20px;
+  transition: padding 0.3s, gap 0.3s;
+  margin-top: 60px;
+  font-weight: 300;
+}
+
+.icon-with-text {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.mat-tab-label {
+  color: white !important;
+}
+
+.example-container {
+  height: 100vh;
+}
+
+.nav-item button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.nav-item {
+  display: flex;
+  color: white;
+  margin-left: 18%;
+  gap: 40px;
+}
+
+.nav-item .icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username {
+  margin-right: 3%;
+  cursor: pointer;
+}
+
+.small-icon,
+.small-icon-side {
+  font-size: 17px;
+}
+
+.small-icon1 {
+  font-size: 20px;
+}
+
+.icon-with-text:hover {
+  background-color: rgba(0, 0, 0, 0.457);
+}
+
+
+@media (max-width: 999px) {
+
+
+  #item1,
+  #item2,
+  #item3,
+  #item4,
+  #item5,
+  #item6,
+  #item7 {
+    display: none;
+  }
+
+  .vertical-icons {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    padding-right: 10px;
+    gap: 20px;
+    transition: padding 0.3s, gap 0.3s;
+    margin-top: 60px;
+    font-size: 12px;
+    font-weight: 200;
+  }
+
+  #item8 {
+    display: flex;
+    font-weight: 200;
+    position: fixed;
+    top: 0;
+  }
+
+}
+
+.icon-with-text {
+  cursor: pointer;
+}
+
+.icon-container {
+  font-size: 15px;
+  height: 30px;
+}
+
+.role {
+  font-size: 15px;
+
+}
+.ustlogo{
+  height: 40px;
+  width: 12px;
+  display: flex;
+  right:0;
+  margin-right: 2.5%;
+}
+
+.sowimg {
+
+  height: 60px;
+  width: 12px;
+  display: flex;
+  margin-bottom: 0.5%;
+}
+
+
+/* .ustlogo {
+  height: 40px;
+  width: 8px;
+  display: flex;
+  position:fixed;
+  right:0;
+  margin-right: 4%;
+} */

@@ -1,0 +1,56 @@
+<div class="stepper-container">
+    <h2>Security Questions</h2>
+    <mat-horizontal-stepper #stepper="matHorizontalStepper">
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup"><br>
+          <!-- Step content -->
+          <ng-template matStepLabel></ng-template>
+          <h4>{{ userQuestions[0].question }}</h4>
+          <mat-form-field>
+            <input matInput placeholder="Your Answer" formControlName="firstCtrl" required minlength="4">
+            <mat-error *ngIf="firstFormGroup.get('firstCtrl')?.hasError('required')">* This field is required.</mat-error>
+          </mat-form-field>
+          
+          <div>
+            <button mat-button [disabled]="!firstFormGroup.valid" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+    
+      <mat-step [stepControl]="secondFormGroup" [editable]="firstFormGroup.valid">
+        <form [formGroup]="secondFormGroup"><br>
+          <!-- Step content -->
+          <ng-template matStepLabel></ng-template>
+          <h4>{{ userQuestions[1].question }}</h4>
+          <mat-form-field>
+            <input matInput placeholder="Your Answer" formControlName="secondCtrl" required minlength="4">
+            <mat-error *ngIf="secondFormGroup.get('secondCtrl')?.hasError('required')">* This field is required.</mat-error>
+          </mat-form-field>
+          
+          <div>
+            <button mat-button [disabled]="!secondFormGroup.valid" matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+    
+      <mat-step [stepControl]="thirdFormGroup" [editable]="secondFormGroup.valid">
+        <form [formGroup]="thirdFormGroup"><br>
+          <!-- Step content -->
+          <ng-template matStepLabel></ng-template>
+          <h4>{{ userQuestions[2].question }}</h4>
+          <mat-form-field>
+            <input matInput placeholder="Your Answer" formControlName="thirdCtrl" required minlength="4">
+            <mat-error *ngIf="thirdFormGroup.get('thirdCtrl')?.hasError('required')">* This field is required.</mat-error>
+          </mat-form-field>
+          
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button [disabled]="!thirdFormGroup.valid"  (click)="ValidateAnswers({ firstFormGroup: firstFormGroup.value, secondFormGroup: secondFormGroup.value, thirdFormGroup: thirdFormGroup.value })" matStepperNext>Done</button>
+            <button mat-button (click)="resetForm(stepper)">Reset</button>
+
+          </div>
+        </form>
+      </mat-step>
+    
+    </mat-horizontal-stepper>
+  </div>

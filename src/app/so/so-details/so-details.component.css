@@ -1,0 +1,382 @@
+.sodetailcard{
+  margin-top: 6%;
+}
+
+h2 {
+  padding-top: 1%;
+  text-align: center;
+  color: #006E74;
+
+}
+::ng-deep.mat-sort-header-arrow {
+  opacity: 1 !important;
+  color: white;
+  size: 12px;
+}
+
+
+.btngrp {
+  justify-content: center;
+  display: flex;
+  margin: 0 2% 0;
+}
+
+#btn {
+  background-color: #006E74;
+  color: white;
+  margin: 0 2% 2%;
+}
+.nav {
+  padding-left: 20px;
+}
+
+.filterRow-form-field_DtRange {
+  width: 160px;
+  height: 70px;
+  padding-right: 20px;
+  display: inline-flex;
+
+  /* FLOATING FIELD  ALIGNMENT */
+  .mdc-floating-label {
+    font-size: 14px;
+  }
+
+  .mat-mdc-input-element {
+    font-size: 10px;
+    padding: 0;
+  }
+}
+
+.table-container {
+  max-height: auto;
+  overflow: auto;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.daterange{
+  display: flex;
+  width: 235px;
+}
+.centered-buttons {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+.resetFiltersAndClose{
+  justify-content: center;
+  display: flex;
+  gap:30px
+}
+
+.td-row{
+  border:1px solid rgba(28, 1, 1, 0.409) ;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-top: 20px;
+  font-size: 11px;
+  font-weight: 400;
+  caret-color: transparent;
+}
+
+.table-container table tr:hover {
+  background-color:#006e740a;
+  height: max-content;
+}
+
+.actionbuttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-cell {
+  background-color: #006E74 !important;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.477);
+  text-align: center;
+  top: 0;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 300;
+  caret-color: transparent;
+}
+
+.filterRow-form-field {
+  width: auto;
+  height: 70px;
+  padding-right: 20px;
+
+  display: inline-flex;
+
+  .mat-icon {
+    font-size: 15px;
+    color: rgb(209, 1, 1);
+    padding-bottom: 15px;
+    padding-right: 0;
+    background-color: transparent;
+  }
+
+  /* INPUT ELEMENT RESIZE AND ALIGNMENT */
+  .mat-mdc-input-element {
+    font-size: 12px;
+    padding-bottom: 5%;
+  }
+
+  /* SELECT OPTION ELEMENT RESIZE AND ALIGNMENT */
+
+  .mat-mdc-select-value {
+    font-size: 14px;
+  }
+
+  .mat-mdc-option {
+
+    font-size: 13px;
+  }
+
+
+  /* INPUT FIELD  ALIGNMENT */
+
+  .mat-mdc-text-field-wrapper {
+    height: auto;
+    flex: content;
+    padding-bottom: 40px;
+  }
+
+  /* FLOATING FIELD  ALIGNMENT */
+  .mdc-floating-label {
+    font-size: 14px;
+  }
+
+}
+
+
+.band{
+  width: 100px;
+  display: flex;
+}
+.tech{
+  width: 150px;
+  display: flex;
+
+}
+
+.filter-card {
+  display: flex;
+  border-radius: 0px;
+  background-color: #006e7400;
+  padding-bottom: 2px;
+  padding-left: 0px;
+  padding-right: 0px;
+
+}
+
+.filter-card mat-card-content {
+  padding-bottom: 0px;
+}
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.filter-button:focus {
+  outline: none;
+}
+
+
+.filter-text {
+  font-weight: bold;
+}
+.row-container {
+  display: flex;
+  align-items: center;
+  margin-top: 8%;
+
+}
+
+
+.filter-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+}
+
+.card {
+  width: 250px;
+  padding: 20px;
+  margin: 0 auto;
+  position: absolute;
+  top: 40%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+#toggle {
+  background-color: #006e74ea;
+  transition: background-color 0.3s ease;
+}
+
+#filcol {
+  text-align: center;
+  color: white;
+  transition: color 0.3s ease;
+  font-weight: 300;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.mat-label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.popupbutton {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+::ng-deep .mat-sort-header-arrow{
+  color: white;
+}
+.filter-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  flex-wrap: wrap;
+  padding: 5px;
+}
+@media screen and (max-width: 600px){
+  .td-row{
+    font-size: 10px;
+  }
+  .header-cell{
+    font-size: 12px;
+  }
+  .sodetailcard{
+    margin-top: 17%;
+  }
+}
+@media screen and (max-width: 1087px) {
+  .filter-form {
+    grid-template-columns: 1fr;
+  }
+  .row-container{
+    margin-top:0px;
+    padding-bottom: 5px;
+
+  }
+  .filter-card{
+    border-radius: 0px;
+    overflow-x:auto;
+    overflow-y: hidden;
+  }
+
+  .centered-buttons button {
+
+    max-width: auto;
+    font-size:10px;
+    padding-top:0px
+  }
+
+  .filter-pagination{
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 0px;
+  }
+}
+
+.row-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 0px;
+}
+
+.centered-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  max-width: auto;
+  margin: 0 auto;
+  padding-top: 0px;
+}
+
+.no-outline:focus {
+  outline: none;
+}
+.content {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease; /* Add smooth transition effect */
+}
+.mat-table {
+  width: 100%;
+  overflow: auto;
+  white-space: nowrap; /* Prevent table cell wrapping */
+}
+
+.mat-form-field {
+  padding-bottom: 50px; /* Adjust the value as needed */
+}
+
+.example-form mat-slide-toggle {
+  margin: 8px 0;
+  display: block;
+}
+.toggle {
+  cursor: none;
+}
+
+.green{
+  background-color: green;
+  padding-top: -10px;
+}
+.red{
+  background-color: red;
+}
+.mat-slide-toggle-custom {
+  background-color: mat-accent !important; /* Set the background color to accent */
+}
+
+/* Add this CSS to your component's stylesheet */
+.mat-slide-toggle-disabled .mat-slide-toggle-bar,
+.mat-slide-toggle-disabled .mat-slide-toggle-thumb {
+  background-color: mat-accent;
+}
+
+.mat-slide-toggle-disabled .mat-slide-toggle-thumb {
+  left: 14px; /* Adjust the thumb position to keep it in place */
+}
+
+.mat-slide-toggle-disabled .mat-slide-toggle-bar {
+  transition: none; /* Remove the transition effect */
+}
+
+
+
+
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.modal-container {
+  padding: 20px;
+}
+

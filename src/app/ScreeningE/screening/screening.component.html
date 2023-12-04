@@ -1,0 +1,349 @@
+<mat-dialog-content class="mat-typography" *ngIf="dataLoaded">
+
+  <mat-card class="example-card">
+    <mat-card-header style="text-align: center;">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>
+        <b> Project Id: </b> <span
+          style="font-weight: 400;background-color: yellow;">{{totalScreeningData[0].projectId}}</span>&nbsp;&nbsp;
+        <b> JR Code: </b> <span
+          style="font-weight: 400; background-color: yellow;">{{totalScreeningData[0].jrCode}}</span><br><br>
+      </mat-card-title>
+      <mat-card-subtitle style="font-size: 18px;"><b>Project Details: </b><span
+          style="color:  #006E74; font-weight: 400;">{{totalScreeningData[0].role}}</span></mat-card-subtitle>
+      <mat-divider></mat-divider>
+      <mat-card-title style="padding-top: 20px; font-size: medium; display: flex; justify-content: space-between; ">
+        <span style="text-align: left; padding-right: 300px;"><b>Total No.of profiles Tagged: </b><span
+            style="font-weight: 400; font-size: 20px; color: black;"><b>{{totalScreeningData[0].screening}}</b></span></span>&nbsp;&nbsp;
+        <span style="text-align: right;"><b>Total No.of Profiles Rejected: </b><span
+            style="font-weight: 400; font-size: 20px; color: black;"><b>{{totalScreeningData[0].totalProfilesRejected}}</b></span></span>
+      </mat-card-title>
+
+    </mat-card-header>
+    <!-- <mat-card-content>
+      <mat-dialog-content class="mat-typography" *ngIf="dataLoaded">
+
+        <mat-card class="example-card"> -->
+    <br>
+    <mat-card-content>
+
+      <mat-horizontal-stepper #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Screening</ng-template>
+            <br>
+
+            <h2>Total No.of Profiles Shortlisted in Screening: {{totalScreeningData[0].screening}} </h2>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3>No.of Profiles Selected in Screening: <b> {{SelectedScreeningProfiles[0].screeningSelected}}</b></h3>
+              <h3>No.of Profiles Rejected in Screening: <b>{{SelectedScreeningProfiles[0].screeningRejected}} </b></h3>
+            </div>
+            <div>
+
+
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Selected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput class="small-filter-input"
+                          (keyup)="applyFilterScreeningSelected(inputFilter.value)" placeholder="Filter">
+
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="ScreeningSelecteddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Rejected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterScreeningRejected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="ScreeningRejecteddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="Onholdprofiles.length>0" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Hold Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterScreeningRejected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="OnholddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>L1 Overview</ng-template>
+            <br>
+            <h2>Total No.of Profiles Shortlisted in L1: {{SelectedScreeningProfiles[0].screeningSelected}}</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3>No.of Profiles Selected in L1: <b>{{SelectedScreeningProfiles[0].l1Selected}}</b></h3>
+              <h3>No.of Profiles Rejected in L1: <b>{{SelectedScreeningProfiles[0].l1Rejected}}</b></h3>
+            </div>
+            <div>
+
+
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Selected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterL1Selected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="L1SelecteddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Rejected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterL1Rejected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="L1RejecteddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>L2 Overview</ng-template>
+            <br>
+            <h2>Total No.of Profiles Shortlisted in L2: {{SelectedScreeningProfiles[0].l1Selected}}</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <h3>No.of Profiles Selected in L2: <b>{{SelectedScreeningProfiles[0].l2Selected}}</b></h3>
+
+              <h3>No.of Profiles Rejected in L2: <b>{{SelectedScreeningProfiles[0].l2Rejected}}</b></h3>
+
+            </div>
+            <div>
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Selected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+
+                  <div class="example-container mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterL2Selected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+
+                    <mat-table #table [dataSource]="L2SelecteddataSource">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Rejected Candidate Details
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Click here to expand
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="example-container mat-elevation-z8">
+                    <ng-template #noRejectedCandidates>
+                      <h2 style="text-align: center;">No Rejected Data.</h2>
+                    </ng-template>
+
+                    <div *ngIf="SelectedScreeningProfiles[0].l2Rejected > 0" class="example-header">
+                      <mat-form-field>
+                        <input #inputFilter matInput (keyup)="applyFilterL2Rejected(inputFilter.value)"
+                          placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+                    <mat-table #table [dataSource]="L2RejecteddataSource"
+                      *ngIf="SelectedScreeningProfiles[0].l2Rejected > 0; else noRejectedCandidates">
+
+                      <ng-container matColumnDef="CandidateUID">
+                        <mat-header-cell *matHeaderCellDef> CandidateUID. </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateUID}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="CandidateName">
+                        <mat-header-cell *matHeaderCellDef> CandidateName </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.candidateName}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+
+            </div>
+          </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+    </mat-card-content>
+
+    <!-- </mat-card>
+      
+      
+      </mat-dialog-content>
+    </mat-card-content> -->
+
+  </mat-card>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button>
+</mat-dialog-actions>

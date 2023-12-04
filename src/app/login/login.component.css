@@ -1,0 +1,281 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  caret-color: transparent;
+  width:100%;
+  padding:5px;
+
+}
+
+  .card {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.598);
+    height: max-content;
+    padding: 70px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    width: auto;
+  }
+
+
+
+
+
+
+  .row {
+
+    display: flex;
+    justify-content: center;
+    align-items: right;
+  }
+
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .col-md-6{
+    padding: 10px;
+    align-items: center;
+    display: inline-flex;
+
+  }
+  .moving-text {
+
+    position: relative;
+
+    animation-name: move-left-to-right;
+
+    animation-duration: 5s;
+
+    animation-timing-function: ease-in-out;
+
+    animation-iteration-count: infinite;
+    color: red;
+
+    margin-top: 20px;
+
+  }
+
+  @keyframes move-left-to-right {
+
+    0% {
+
+      left: -20%;
+
+    }
+
+    100% {
+
+      left: 20%;
+
+    }
+
+  }
+
+  /* Add these styles to center the elements */
+
+  body {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  height: 100vh;
+
+  margin: 0;
+
+  }
+
+  .center-form {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+    }
+
+
+
+    .form-group.row {
+
+      display: flex;
+
+      justify-content: center;
+
+      margin-bottom: 5px;
+
+    }
+
+
+
+    .footer {
+
+      margin-left: 10px;
+
+    }
+
+
+
+    .forgot {
+
+      display: flex;
+
+      align-items: center;
+
+      margin-right: 10px;
+
+    }
+
+
+
+    .arrow {
+
+      width: 8px;
+
+      height: 8px;
+
+      border-top: 2px solid #000;
+
+      border-right: 2px solid #000;
+
+      background-color: transparent;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transition: opacity 0.3s ease-in-out;
+
+    }
+
+
+
+    .forgot:hover .arrow {
+
+      visibility: visible;
+
+      opacity: 1;
+
+    }
+
+
+
+
+
+/* Add a media query to adjust the width of the container and center the loading image */
+
+@media screen and (max-width: 600px) {
+
+  .card {
+
+    max-width: 100%;
+
+  }
+
+
+
+
+}
+
+
+
+
+
+button[type=submit] {
+
+  background-color: green;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  display: relative;
+
+  justify-content: center;
+
+  align-items: center;
+
+  /* padding: 10px 20px;
+
+  margin-left: 20%; */
+
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+
+button[type=submit]:hover {
+
+  border-color: white;
+
+  border-color:green !important;
+
+  transform: scale(1.02);
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+
+
+
+
+}
+
+@media screen and (max-width: 600px) {
+
+
+
+
+  button[type=submit] {
+
+    float: right;
+
+    margin-left: 1%;
+
+    display: flex;
+
+    justify-content:space-between;
+
+    align-items: center;
+
+  }
+
+
+
+
+}
+
+mat-form-field{
+
+  padding:1px;
+
+  padding-left:5px;
+
+  padding-right: 5px;;
+
+}
+
+.container-fluid{
+
+  margin: 0px;
+
+  padding: 0px;
+
+}

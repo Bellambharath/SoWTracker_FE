@@ -1,0 +1,1038 @@
+<div class="adminpage">
+  <mat-toolbar>
+    <mat-tab-group class="admintabs" (selectedTabChange)="onTabChange($event)">
+      <mat-tab *ngIf="Candidate" label="Candidate"></mat-tab>
+      <mat-tab *ngIf="SO" label="SO"></mat-tab>
+      <mat-tab *ngIf="Account" label="Account"></mat-tab>
+      <mat-tab *ngIf="DellManager" label="DellManager"></mat-tab>
+      <mat-tab *ngIf="Domain" label="Domain"></mat-tab>
+      <mat-tab *ngIf="Location" label="Location"></mat-tab>
+      <mat-tab *ngIf="Registration" label="Registration"></mat-tab>
+      <mat-tab *ngIf="Region" label="Region"></mat-tab>
+      <mat-tab *ngIf="Recruiter" label="Recruiter"></mat-tab>
+      <mat-tab  *ngIf="Technology" label="Technology"></mat-tab>
+      <mat-tab *ngIf="USTPOC" label="USTPOC"></mat-tab>
+      <mat-tab *ngIf="USTTPM" label="USTTPM"></mat-tab>
+    </mat-tab-group>
+  </mat-toolbar>
+  
+  <div *ngIf="selectedTab === 'SO'" class="sonew">
+    <app-so-list></app-so-list>
+  </div>
+  <div *ngIf="selectedTab === 'Candidate'"  class="candidatenew">
+    <app-candidate-list></app-candidate-list>
+  </div>
+  
+  <div *ngIf="selectedTab === 'Account'">
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openAccountForm()">
+          <mat-icon>add</mat-icon>
+          Add Account
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchAccount" (keyup)="applyFilterAccount()" placeholder="Search Account">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showAccountForm">
+      <h3>Add Account</h3>
+      <form [formGroup]="AccountForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Account Name</mat-label>
+          <input matInput formControlName="accountName" placeholder="Enter Account Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewAccountEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeAccountForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+  
+    <div class="table-container">
+  
+      <div class="center-table">
+        <table mat-table [dataSource]="accountDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="AccountName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Account Name</th>
+            <td mat-cell *matCellDef="let account" class="td-row">
+              <ng-container *ngIf="!account.isEditing">
+                {{ account.accountName }}
+              </ng-container>
+              <ng-container *ngIf=" account.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Account Name </mat-label>
+                  <input matInput [(ngModel)]="account.accountName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+  
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+  
+            <td mat-cell *matCellDef="let account" class="td-row">
+  
+              <div class="action-buttons">
+                <ng-container *ngIf="!account.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateAccountDetails(account)" matTooltip="Update"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteAccountData(account)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="account.isEditing">
+                  <button mat-icon-button class="save" (click)="saveAccountDetails(account)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelAccountChanges(account)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['AccountName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let account; columns: ['AccountName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #accountPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  
+  </div>
+  
+  <div *ngIf="selectedTab === 'DellManager'">
+  
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openDellManagerForm()">
+          <mat-icon>add</mat-icon>
+          Add DellManager
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchDellManager" (keyup)="applyFilterDellManager()"
+            placeholder="Search DellManager">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showDellManagerForm">
+      <h3>Add DellManager</h3>
+      <form [formGroup]="DellManagerForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Dell Manger Name</mat-label>
+          <input matInput formControlName="dellManagerName" placeholder="Enter Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewDellMangerEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeDellManagerForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+    <div class="table-container">
+  
+      <div class="center-table">
+        <table mat-table [dataSource]="dellManagerDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="DellManagerName">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>Dell Manager Name</th>
+            <td mat-cell *matCellDef="let dellManager" class="td-row">
+              <ng-container *ngIf="!dellManager.isEditing">
+                {{ dellManager.dellManagerName }}
+              </ng-container>
+              <ng-container *ngIf="dellManager.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Dell Manager Name</mat-label>
+                  <input matInput [(ngModel)]="dellManager.dellManagerName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let dellManager" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!dellManager.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateDellManager(dellManager)" matTooltip="Update"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteDellManagerData(dellManager)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="dellManager.isEditing">
+                  <button mat-icon-button class="save" (click)="saveDellManager(dellManager)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelDellManagerChanges(dellManager)"
+                    matTooltip="Cancel Edit" matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['DellManagerName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let dellManager; columns: ['DellManagerName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #dellManagerPaginator [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  <div *ngIf="selectedTab === 'Recruiter'">
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openRecruiterForm()">
+          <mat-icon>add</mat-icon>
+          Add Recruiter
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchRecruiter" (keyup)="applyFilterRecruiter()" placeholder="Search Recruiter">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showRecruiterForm">
+      <h3>Add Recruiter</h3>
+      <form [formGroup]="RecruiterForm">
+        <mat-form-field appearance="outline">
+          <mat-label> Recruiter Name</mat-label>
+          <input matInput formControlName="recruiterName" placeholder="Enter Recruiter Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewRecruiterEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeRecruiterForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+    <div class="table-container">
+      <div class="center-table">
+        <table mat-table [dataSource]="recruiterDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="RecruiterName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Recruiter Name</th>
+            <td mat-cell *matCellDef="let recruiter" class="td-row">
+              <ng-container *ngIf="!recruiter.isEditing">{{ recruiter.recruiterName }}</ng-container>
+              <ng-container *ngIf="recruiter.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Recruiter Name</mat-label>
+                  <input matInput [(ngModel)]="recruiter.recruiterName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="colname">Actions</th>
+            <td mat-cell *matCellDef="let recruiter" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!recruiter.isEditing">
+                  <button mat-icon-button color="primary" (click)=" updateRecruiter(recruiter)" matTooltip="Edit"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteRecruiterData(recruiter)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="recruiter.isEditing">
+                  <button mat-icon-button class="save" (click)="saveRecruiter(recruiter)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelRegionChanges(recruiter)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['RecruiterName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let recruiter; columns: ['RecruiterName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #recruiterPaginator [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  
+  <div *ngIf="selectedTab === 'USTPOC'">
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openUSTPOCForm()">
+          <mat-icon>add</mat-icon>
+          Add USTPOC
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchUSTPOC" (keyup)="applyFilterUSTPOC()" placeholder="Search USTPOC">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showUSTPOCForm">
+      <h3>Add USTPOC</h3>
+      <form [formGroup]="USTPOCForm">
+        <mat-form-field appearance="outline">
+          <mat-label> USTPOC Name</mat-label>
+          <input matInput formControlName="ustpocName" placeholder="Enter USTPOC Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewUSTPOCEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeUSTPOCForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+    <div class="table-container">
+  
+  
+      <div class="center-table">
+        <table mat-table [dataSource]="ustPocDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="USTPOCName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>USTPOC Name</th>
+            <td mat-cell *matCellDef="let ustPoc" class="td-row">
+              <ng-container *ngIf="!ustPoc.isEditing">{{ ustPoc.ustpocName }}</ng-container>
+              <ng-container *ngIf="ustPoc.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>USTPOC Name</mat-label>
+                  <input matInput [(ngModel)]="ustPoc.ustpocName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let ustPoc" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!ustPoc.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateUSTPOC(ustPoc)" matTooltip="Edit"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteUSTPOCData(ustPoc)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="ustPoc.isEditing">
+                  <button mat-icon-button class="save" (click)="saveUSTPOC(ustPoc)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelUSTPOC(ustPoc)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['USTPOCName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let ustPoc; columns: ['USTPOCName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #ustPocPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  
+  </div>
+  
+  <div *ngIf="selectedTab === 'USTTPM'">
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openUSTTPMForm()">
+          <mat-icon>add</mat-icon>
+          Add USTTPM
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchUSTTPM" (keyup)="applyFilterUSTTPM()" placeholder="Search USTTPM">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showUSTTPMForm">
+      <h3>Add USTTPM</h3>
+      <form [formGroup]="USTTPMForm">
+        <mat-form-field appearance="outline">
+          <mat-label>USTTPM Uid</mat-label>
+          <input matInput formControlName="uSTTPMUID" placeholder="Enter USTTPM Uid" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label> USTTPM</mat-label>
+          <input matInput formControlName="usttpmName" placeholder="Enter USTPOC Name" required>
+        </mat-form-field>
+        
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewUSTTPMEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeUSTTPMForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+      <div class="center-table">
+        <table mat-table [dataSource]="ustTpmDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="USTTPMName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>USTTPM Name</th>
+            <td mat-cell *matCellDef="let ustTpm" class="td-row">
+              <ng-container *ngIf="!ustTpm.isEditing">{{ ustTpm.usttpmName }}</ng-container>
+              <ng-container *ngIf="ustTpm.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>USTTPM Name</mat-label>
+                  <input matInput [(ngModel)]="ustTpm.usttpmName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let ustTpm" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!ustTpm.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateUSTTPM(ustTpm)" matTooltip="Edit"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteUSTTPMData(ustTpm)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="ustTpm.isEditing">
+                  <button mat-icon-button class="save" (click)="saveUSTTPM(ustTpm)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelUSTTPM(ustTpm)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['USTTPMName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let ustTpm; columns: ['USTTPMName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #ustTpmPaginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  
+  </div>
+  
+  <div *ngIf="selectedTab === 'Region'">
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openRegionForm()">
+          <mat-icon>add</mat-icon>
+          Add Region
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchRegion" (keyup)="applyFilterRegion()" placeholder="Search Region">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showRegionForm">
+      <h3>Add Region</h3>
+      <form [formGroup]="RegionForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Region Name</mat-label>
+          <input matInput formControlName="region" placeholder="Enter Account Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewRegionEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeRegionForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+      <div class="center-table">
+        <table mat-table [dataSource]="regionDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="RegionName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Region Name</th>
+            <td mat-cell *matCellDef="let region" class="td-row">
+              <ng-container *ngIf="!region.isEditing">
+                {{ region.region }}
+              </ng-container>
+              <ng-container *ngIf="region.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Region Name</mat-label>
+                  <input matInput [(ngModel)]="region.region" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let region" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!region.isEditing">
+                  <button mat-icon-button color="primary" (click)=" updateRegion(region)" matTooltip="Edit"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteRegionData(region)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="region.isEditing">
+                  <button mat-icon-button class="save" (click)="saveRegion(region)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelRegionChanges(region)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['RegionName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let region; columns: ['RegionName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #regionPaginator [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  <div *ngIf="selectedTab === 'Domain'">
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openDomainForm()">
+          <mat-icon>add</mat-icon>
+          Add Domain
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchDomain" (keyup)=" applyFilterDomain()" placeholder="Search Domain">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showDomainForm">
+      <h3>Add Domain</h3>
+      <form [formGroup]="DomainForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Domain Name</mat-label>
+          <input matInput formControlName="domainName" placeholder="Enter Domain Name" required>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewDomainEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeDomainForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+      <div class="center-table">
+        <table mat-table [dataSource]="domainDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="DomainName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Domain Name</th>
+            <td mat-cell *matCellDef="let domain" class="td-row">
+              <ng-container *ngIf="!domain.isEditing">{{ domain.domainName }}</ng-container>
+              <ng-container *ngIf="domain.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Domain Name</mat-label>
+                  <input matInput [(ngModel)]="domain.domainName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let domain" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!domain.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateDomain(domain)" matTooltip="Edit"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteDomainData(domain)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="domain.isEditing">
+                  <button mat-icon-button class="save" (click)="saveDomain(domain)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelDomain(domain)" matTooltip="Cancel Edit"
+                    matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['DomainName', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let domain; columns: ['DomainName', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #domainPaginator [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  <div *ngIf="selectedTab === 'Location'">
+  
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openLocationForm()">
+          <mat-icon>add</mat-icon>
+          Add Location
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchLocation" (keyup)="applyFilterLocation()" placeholder="Search Location">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+  
+    <mat-card class="add-form" *ngIf="showLocationForm">
+      <h3>Add Location</h3>
+      <form [formGroup]="LocationForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Location Name</mat-label>
+          <input matInput formControlName="location" placeholder="Enter Location" required>
+        </mat-form-field>
+  
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-select placeholder="Region" formControlName="regionId">
+            <mat-option *ngFor="let region of regionDataSource.data"
+              [value]="region.regionId">{{region.region}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewLocationEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeLocationForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+  
+      <div class="center-table">
+        <table mat-table [dataSource]="locationDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="LocationName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Location Name</th>
+            <td mat-cell *matCellDef="let location" class="td-row">
+              <ng-container *ngIf="!location.isEditing">
+                {{ location.location }}
+              </ng-container>
+              <ng-container *ngIf="location.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Location Name </mat-label>
+                  <input matInput [(ngModel)]="location.location" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Region">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>Region Name</th>
+            <td mat-cell *matCellDef="let location" class="td-row">
+              <ng-container *ngIf="!location.isEditing">
+                {{ getRegionName(location.regionId) }}
+  
+              </ng-container>
+              <ng-container *ngIf="location.isEditing">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Region</mat-label>
+                  <mat-select placeholder="Region" [(ngModel)]="location.regionId">
+                    <mat-option *ngFor="let region of regionDataSource.data" [value]="region.regionId">
+                      {{ region.region }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let location" class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!location.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateLocationDetails(location)" matTooltip="Update"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteLocationData(location)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="location.isEditing">
+                  <button mat-icon-button class="save" (click)="saveLocationDetails(location)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelLocationChanges(location)"
+                    matTooltip="Cancel Edit" matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['LocationName','Region', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let location; columns: ['LocationName','Region', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #locationPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  
+  
+  <div *ngIf="selectedTab === 'Registration'">
+  
+  
+    <div class="firstrow">
+      <div class="add-button">
+        <button mat-raised-button color="primary" (click)="openRegistrationForm()">
+          <mat-icon>add</mat-icon>
+          Add Registration
+        </button>
+      </div>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchRegistration" (keyup)="applyFilterRegistration()"
+            placeholder="Search Registared Data">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+  
+    <mat-card class="add-form" *ngIf="showRegistrationForm">
+      <h3>Add Registration Details</h3>
+      <form [formGroup]="RegistrationForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Registration Name</mat-label>
+          <input matInput formControlName="loginName" placeholder="Enter Name" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Email Id</mat-label>
+          <input matInput formControlName="emailId" placeholder="Enter EmailId" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Select Role</mat-label>
+          <mat-select placeholder="Select a Role" formControlName="role">
+            <mat-option *ngFor="let role of roleName" value="{{role.roleId}}">
+              {{role.roleName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewRegistrationEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeRegistrationForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+  
+      <div class="center-table">
+        <table mat-table [dataSource]="registrationDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="LoginName">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>User Name</th>
+            <td mat-cell *matCellDef="let registration" class="td-row">
+              <ng-container *ngIf="!registration.isEditing">
+                {{ registration.loginName }}
+              </ng-container>
+  
+              <ng-container *ngIf="registration.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>User Name </mat-label>
+                  <input matInput [(ngModel)]="registration.loginName" type="text">
+                </mat-form-field>
+  
+              </ng-container>
+            </td>
+          </ng-container>
+  
+  
+  
+          <ng-container matColumnDef="EmailId">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>Email Id</th>
+            <td mat-cell *matCellDef="let registration" class="td-row">
+              <ng-container *ngIf="!registration.isEditing">
+                {{ registration.emailId}}
+              </ng-container>
+  
+              <ng-container *ngIf="registration.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email Id </mat-label>
+                  <input matInput disabled [(ngModel)]="registration.emailId" type="text">
+                </mat-form-field>
+  
+              </ng-container>
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="RoleName">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>Role Name</th>
+            <td mat-cell *matCellDef="let registration" class="td-row">
+              <ng-container *ngIf="!registration.isEditing">
+                {{ registration.roleName}}
+              </ng-container>
+              <ng-container *ngIf="registration.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Role </mat-label>
+                  <mat-select placeholder="Select a Role" (selectionChange)="onRoleSelectionChange($event)"
+                    [(ngModel)]="registration.roleId">
+                    <mat-option *ngFor="let role of roleName" [value]="role.roleId">
+                      {{role.roleName}}
+                    </mat-option>
+                  </mat-select>
+  
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+  
+  
+  
+          <ng-container matColumnDef="Actions">
+  
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+  
+            <td mat-cell *matCellDef="let registration" class="td-row">
+  
+              <div class="action-buttons">
+                <ng-container *ngIf="!registration.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateRegistrationDetails(registration)"
+                    matTooltip="Update" matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteRegistrationData(registration)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+  
+                  <button mat-icon-button (click)="resetAccount(registration)" matTooltip="Reset/UnLock"
+                    matTooltipPosition="right">
+                    <mat-icon>autorenew</mat-icon>
+                  </button>
+  
+  
+  
+                </ng-container>
+                <ng-container *ngIf="registration.isEditing">
+                  <button mat-icon-button class="save" (click)="saveRegistrationDetails(registration)"
+                    matTooltip="Save Changes" matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelRegistrationChanges(registration)"
+                    matTooltip="Cancel Edit" matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['LoginName','EmailId','RoleName','Actions']"></tr>
+          <tr mat-row *matRowDef="let location; columns: ['LoginName','EmailId','RoleName','Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #registrationPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+  
+  
+  <div *ngIf="selectedTab === 'Technology'">
+  
+    <div class="firstrow">
+      <button mat-raised-button color="primary" (click)="openTechnologyForm()">
+        <mat-icon>add</mat-icon>
+        Add Technology
+      </button>
+  
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-label>Search</mat-label>
+          <input matInput [(ngModel)]="searchTechnology" (keyup)="applyFilterTech()" placeholder="Search Technologies">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <mat-card class="add-form" *ngIf="showAddForm">
+      <h3>Add New Technology</h3>
+      <form [formGroup]="TechnologyForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Technology Name</mat-label>
+          <input matInput formControlName="technologyName" placeholder="Enter Technology Name" required>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-select placeholder="Domain" formControlName="domainId">
+            <mat-option *ngFor="let domain of domainDataSource.data"
+              [value]="domain.domainId">{{domain.domainName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="form-actions">
+          <button mat-raised-button color="primary" (click)="addNewTechnologyEntry()">Submit</button>
+          <button mat-raised-button color="warn" (click)="closeTechnlogyForm()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+  
+    <div class="table-container">
+      <div class="center-table">
+        <table mat-table [dataSource]="technologyDataSource" matSort class="mat-elevation-z8">
+          <ng-container matColumnDef="TechnologyName">
+            <th mat-header-cell *matHeaderCellDef class="colname" mat-sort-header>Technology Name</th>
+            <td mat-cell *matCellDef="let technology  " class="td-row">
+              <ng-container *ngIf="!technology.isEditing">
+                {{ technology.technologyName }}
+              </ng-container>
+              <ng-container *ngIf=" technology.isEditing">
+                <mat-form-field appearance="outline">
+                  <mat-label>Technology Name </mat-label>
+                  <input matInput [(ngModel)]="technology.technologyName" type="text">
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Domain">
+            <th mat-header-cell *matHeaderCellDef class="header-cell" mat-sort-header>Domain Name</th>
+            <td mat-cell *matCellDef="let technology" class="td-row">
+              <ng-container *ngIf="!technology.isEditing">
+                {{ technology.domainName }}
+              </ng-container>
+              <ng-container *ngIf="technology.isEditing">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Domain</mat-label>
+                  <mat-select placeholder="Domain" [(ngModel)]="technology.domainId">
+                    <mat-option *ngFor="let domain of domainDataSource.data" [value]="domain.domainId">
+                      {{ domain.domainName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Actions">
+  
+            <th mat-header-cell *matHeaderCellDef class="header-cell">Actions</th>
+            <td mat-cell *matCellDef="let technology " class="td-row">
+              <div class="action-buttons">
+                <ng-container *ngIf="!technology.isEditing">
+                  <button mat-icon-button color="primary" (click)="updateTechnology(technology)" matTooltip="Update"
+                    matTooltipPosition="left">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteTechnologyData(technology)" matTooltip="Delete"
+                    matTooltipPosition="right">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="technology.isEditing">
+                  <button mat-icon-button class="save" (click)="saveTechnology(technology)" matTooltip="Save Changes"
+                    matTooltipPosition="left">
+                    <mat-icon>done</mat-icon>
+                  </button>
+                  <button mat-icon-button class="cancel" (click)="cancelTechnologyChanges(technology)"
+                    matTooltip="Cancel Edit" matTooltipPosition="right">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['TechnologyName','Domain', 'Actions']"></tr>
+          <tr mat-row *matRowDef="let technology ; columns: ['TechnologyName','Domain', 'Actions']"></tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator #technologyPaginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  
+  
+  
+  </div>
+  </div>
+  

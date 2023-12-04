@@ -1,0 +1,465 @@
+<br>
+<div class="billinglistbody">
+    <form [formGroup]="BillingForm">
+        <mat-card class="shipping-card">
+            <mat-card-header class="billingdetailsheader">
+                <mat-card-title>Add <span id="gapso"> Billing</span></mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Candidate UId</mat-label>
+                            <mat-select placeholder="Select Candidate Uid" formControlName="CandidateId"
+                                (change)="updateCandidateName($event)">
+                                <mat-option *ngFor="let candidate of candidateList"
+                                    [value]="candidate.candidateId">{{candidate.candidateUid}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['CandidateId'].hasError('required')">
+                                <small>*CandidateUID is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Candidate Name</mat-label>
+                            <input matInput formControlName="CandidateName" readonly>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Employee Type</mat-label>
+                            <mat-select placeholder="Select an Employee Type" formControlName="EmployeeId">
+                                <mat-option *ngFor="let employee of employeeList" value="{{employee.employeeId}}">
+                                    {{employee.employeeType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['EmployeeId'].hasError('required')">
+                                <small>*Employee Type is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>OBU</mat-label>
+                            <input matInput placeholder="Enter OBU" formControlName="OBU">
+                            <mat-error *ngIf="BillingForm.controls['OBU'].hasError('required')">
+                                <small>*OBU is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>OBU Description</mat-label>
+                            <input matInput placeholder="Enter OBU Description" formControlName="OBUDescription">
+                            <mat-error *ngIf="BillingForm.controls['OBUDescription'].hasError('required')">
+                                <small>*OBU Description is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Customer ID</mat-label>
+                            <mat-select placeholder=" Select the Customer Id" formControlName="CustomerTypeId"
+                                (change)="updateCustomerName($event)">
+                                <mat-option *ngFor="let customer of customerList" [value]="customer.customerTypeId">
+                                    {{customer.customerId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['CustomerTypeId'].hasError('required')">
+                                <small>*Customer Id is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Customer Name</mat-label>
+                            <input matInput formControlName="CustomerName" readonly>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project Id</mat-label>
+                            <mat-select placeholder="Select a Project Id" formControlName="ProjectTypeId"
+                                (change)="updateProjectDescription($event)">
+                                <mat-option *ngFor="let project of projectList"
+                                    [value]="project.projectTypeId">{{project.projectId}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['ProjectTypeId'].hasError('required')">
+                                <small>*Project Id is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project Description</mat-label>
+                            <input matInput formControlName="ProjectDescription" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Contract Category</mat-label>
+                            <mat-select placeholder="Select a Contract Category" formControlName="ContractCategoryId">
+                                <mat-option *ngFor="let contractcategory of contractcategoryList"
+                                    value="{{contractcategory.contractCategoryId}}">
+                                    {{contractcategory.contractCategory}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['ContractCategoryId'].hasError('required')">
+                                <small>*Contract Category is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project manager Id</mat-label>
+                            <mat-select placeholder="Select a Project Manager Id" formControlName="ProjectManagerTypeId"
+                                (change)="updateProjectmanagerName($event)">
+                                <mat-option *ngFor="let projectmanager of  projectmanagerList"
+                                    [value]="projectmanager.projectManagerTypeId">
+                                    {{projectmanager.projectManagerId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['ProjectManagerTypeId'].hasError('required')">
+                                <small>*Project Manager Id is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project Manager Name</mat-label>
+                            <input matInput formControlName="ProjectManagerName" readonly>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker" [max]="maxDate"
+                                placeholder="Enter Project Start Date" formControlName="ProjectStartDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['ProjectStartDate'].hasError('required')">
+                                <small>*Project Start Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Project End Date</mat-label>
+                            <input matInput [matDatepicker]="picker2" [max]="maxDate"
+                                placeholder="Enter Project End Date" formControlName="ProjectEndDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['ProjectEndDate'].hasError('required')">
+                                <small>*Project End Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Resource Start Date</mat-label>
+                            <input matInput [matDatepicker]="picker3" [max]="maxDate"
+                                placeholder="Enter Resource Start Date" formControlName="ResourceStartDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['ResourceStartDate'].hasError('required')">
+                                <small>*Resource Start Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Resource End Date</mat-label>
+                            <input matInput [matDatepicker]="picker4" [max]="maxDate"
+                                placeholder="Enter Resource End Date" formControlName="ResourceEndDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                            <mat-datepicker #picker4></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['ResourceEndDate'].hasError('required')">
+                                <small>*Resource End Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select placeholder="Select a Country" formControlName="RegionId">
+                                <mat-option *ngFor="let country of countryList" value="{{country.regionId}}">
+                                    {{country.region}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['RegionId'].hasError('required')">
+                                <small>*Country is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Location</mat-label>
+                            <mat-select placeholder="Select a Location" formControlName="LocationTypeId"
+                                (change)="updateLocationDescription($event)">
+                                <mat-option *ngFor="let location of locationtypeList" [value]="location.locationTypeId">
+                                    {{location.locationId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['LocationTypeId'].hasError('required')">
+                                <small>*Location is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Location Description</mat-label>
+                            <input matInput formControlName="LocationDescription" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>JobCode</mat-label>
+                            <mat-select placeholder="Select a Jobcode" formControlName="JobCodeId"
+                                (change)="updateJobCodeDescription($event)">
+                                <mat-option *ngFor="let jobcode of jobcodeList" [value]="jobcode.jobCodeId">
+                                    {{jobcode.jobCode}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['JobCodeId'].hasError('required')">
+                                <small>*Jobcode is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>JobCode Description</mat-label>
+                            <input matInput formControlName="JobDescription" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Billable</mat-label>
+                            <mat-select formControlName="Billable" [(ngModel)]="selectedValue">
+                                <mat-option *ngIf="selectedValue === null" [value]="null" disabled>Select an
+                                    option</mat-option>
+                                <mat-option [value]="true">True</mat-option>
+                                <mat-option [value]="false">False</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['Billable'].hasError('required')">
+                                <small>*Billable is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Client Project Role</mat-label>
+                            <input matInput placeholder="Enter Client Project Role" formControlName="ClientProjectRole">
+                            <mat-error *ngIf="BillingForm.controls['ClientProjectRole'].hasError('required')">
+                                <small>*Client Project Role is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Client Project Role Desc</mat-label>
+                            <input matInput placeholder="Enter Client Project Role"
+                                formControlName="ClientProjectRoleDesc">
+                            <mat-error *ngIf="BillingForm.controls['ClientProjectRoleDesc'].hasError('required')">
+                                <small>*Client Project Role Desc is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Alias Name</mat-label>
+                            <input matInput placeholder="Enter Alias Name" formControlName="AliasName">
+                            <mat-error *ngIf="BillingForm.controls['AliasName'].hasError('required')">
+                                <small>*Alias Name is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Bill Rate</mat-label>
+                            <input matInput placeholder="Enter Bill Rate" formControlName="BillRate">
+                            <mat-error *ngIf="BillingForm.controls['BillRate'].hasError('required')">
+                                <small>*Bill Rate is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Hours</mat-label>
+                            <input matInput placeholder="Enter Hours" formControlName="Hours">
+                            <mat-error *ngIf="BillingForm.controls['Hours'].hasError('required')">
+                                <small>*Hours is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Total Billed Hours</mat-label>
+                            <input matInput placeholder="Enter Total Billed Hours" formControlName="Totalbilledhrs">
+                            <mat-error *ngIf="BillingForm.controls['Totalbilledhrs'].hasError('required')">
+                                <small>*Total Billed Hours is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Frequency</mat-label>
+                            <mat-select placeholder="Select a Frequency" formControlName="FrequencyId">
+                                <mat-option *ngFor="let frequency of frequencyList" value="{{frequency.frequencyId}}">
+                                    {{frequency.frequency}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['FrequencyId'].hasError('required')">
+                                <small>*Frequency is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Currency</mat-label>
+                            <input matInput placeholder="Enter the Currency" formControlName="Currency">
+                            <mat-error *ngIf="BillingForm.controls['Currency'].hasError('required')">
+                                <small>*Currency is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Allocation Percentage</mat-label>
+                            <input matInput placeholder="Enter Allocation Percentage"
+                                formControlName="AllocationPercentage">
+                            <mat-error *ngIf="BillingForm.controls['AllocationPercentage'].hasError('required')">
+                                <small>*Allocation Percentage is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Manager ID</mat-label>
+                            <mat-select placeholder=" Select the Manager Id" formControlName="UsttpmId"
+                                (change)="updateManagerName($event)">
+                                <mat-option *ngFor="let usttpm of usttpmList" [value]="usttpm.usttpmId">
+                                    {{usttpm.usttpmuid}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['UsttpmId'].hasError('required')">
+                                <small>*Manager Id is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Manager Name</mat-label>
+                            <input matInput formControlName="USTTPMName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Joining Date</mat-label>
+                            <input matInput [matDatepicker]="picker5" [max]="maxDate" placeholder="Enter Joining Date"
+                                formControlName="JoiningDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                            <mat-datepicker #picker5></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['JoiningDate'].hasError('required')">
+                                <small>*Joining Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Termination Date</mat-label>
+                            <input matInput [matDatepicker]="picker6" [max]="maxDate"
+                                placeholder="Enter Termination Date" formControlName="TerminationDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                            <mat-datepicker #picker6></mat-datepicker>
+                            <mat-error *ngIf="BillingForm.controls['TerminationDate'].hasError('required')">
+                                <small>*Termination Date is
+                                    required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Business Unit</mat-label>
+                            <mat-select placeholder=" Select the Business Unit" formControlName="BussinessUnitId"
+                                (change)="updatebudescription($event)">
+                                <mat-option *ngFor="let bu of buList" [value]="bu.bussinessUnitId">
+                                    {{bu.bussinessUnit}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['BussinessUnitId'].hasError('required')">
+                                <small>*Business Unit is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Business Unit Description</mat-label>
+                            <input matInput formControlName="BussinessUnitDescription" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Department ID</mat-label>
+                            <mat-select placeholder=" Select the Department Id" formControlName="DepartmentTypeId"
+                                (change)="updatedepartmentDescr($event)">
+                                <mat-option *ngFor="let department of departmentList" [value]="department.departmentTypeId">
+                                    {{department.departmentId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="BillingForm.controls['DepartmentTypeId'].hasError('required')">
+                                <small>*Department Id is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Department Descr</mat-label>
+                            <input matInput formControlName="DepartmentDescription" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Comments</mat-label>
+                            <input matInput placeholder="Enter the Comments" formControlName="Comments">
+                            <mat-error *ngIf="BillingForm.controls['Comments'].hasError('required')">
+                                <small>*Comments is required</small>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="actions-container">
+                <button mat-raised-button color="primary" (click)="onSubmit()" type="submit">Submit</button>
+                <!-- <button mat-raised-button color="warn" (click)="cancel()" type="cancel">Cancel</button> -->
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

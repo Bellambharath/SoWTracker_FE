@@ -1,0 +1,1262 @@
+<div class="canDetails">
+  <mat-card class="candidatedetailcard">
+    <h2>BILLING DETAILS</h2>
+    <div class="btngrp">
+
+      <!-- <button id="btn" mat-raised-button routerLink="/billinglist">Add Billing
+        <mat-icon>add</mat-icon></button> -->
+      <!-- <button *ngIf="IsAccessToEdit" id="btn" mat-raised-button (click)="fileInput.click()">Choose File
+        <mat-icon>insert_drive_file</mat-icon></button> -->
+      <!-- <button id="btn" mat-raised-button (click)="DownloadExcel()">Download Excel
+        <mat-icon>download</mat-icon>
+      </button> -->
+      <button id="btn" mat-raised-button (click)="toggleFormVisibility()" >Filters
+        <mat-icon>filter_list</mat-icon>
+      </button>
+    </div>
+    <!-- File Input -->
+    <!-- <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file"
+      accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+ -->
+
+
+         <div class="nav" fxLayout="row" fxLayoutGap="10px" *ngIf="isFormVisible">
+          <form [formGroup]="billingform">
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Employee Id" formControlName="candidateId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let emp of candidatelist" [value]="emp.candidateId" >{{emp.candidateUid}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+              
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Employee Name" formControlName="candidateId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let emp of candidatelist" [value]="emp.candidateId" >{{emp.candidateName}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="EmployeeType" formControlName="employeeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let emp of emplist" [value]="emp.employeeId">{{emp.employeeType}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>OBU</mat-label>
+              <input #obu matInput type="text" formControlName="obu" (keyup)="customFilter()">
+              <mat-icon *ngIf="obu.value" matSuffix color="warn"
+                (click)="clearFormField('obu')">close</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>OBU Description</mat-label>
+              <input #obuDescription matInput type="text" formControlName="obuDescription" (keyup)="customFilter()">
+              <mat-icon *ngIf="obuDescription.value" matSuffix color="warn"
+                (click)="clearFormField('obuDescription')">close</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="CustomerId" formControlName="customerTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let cus of cuslist" [value]="cus.customerTypeId">{{cus.customerId}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Customer Name" formControlName="customerTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let cus of cuslist" [value]="cus.customerTypeId">{{cus.customerName}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+              <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="ProjectId" formControlName="projectTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let pro of prolist" [value]="pro.projectTypeId">{{pro.projectId}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Project Description" formControlName="projectTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let pro of prolist" [value]="pro.projectTypeId">{{pro.projectDescription}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Contract Category" formControlName="contractCategoryId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let cat of catlist" [value]="cat.contractCategoryId">{{cat.contractCategory}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Project Manager" formControlName="projectManagerTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let manager of managerlist" [value]="manager.projectManagerTypeId">{{manager.projectManagerId}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="ProjectManagerName" formControlName="projectManagerTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let manager of managerlist" [value]="manager.projectManagerTypeId">{{manager.projectManagerName}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Project Start Date</mat-label>
+              <mat-date-range-input [rangePicker]="startpicker" [max]="maxDate">
+                <input matStartDate formControlName="projectStartDate">
+                <input #projectStartDate matEndDate formControlName="projectStartDateto" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!projectStartDate.value" matIconSuffix [for]="startpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #startpicker></mat-date-range-picker>
+              <mat-icon *ngIf="projectStartDate.value" matSuffix color="warn"
+                (click)="[clearFormField('projectStartDate'),clearFormField('projectStartDateto')]">close</mat-icon>
+
+            </mat-form-field>
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Project End Date</mat-label>
+              <mat-date-range-input [rangePicker]="endpicker" [max]="maxDate">
+                <input matStartDate formControlName="projectEndDate">
+                <input #projectEndDate matEndDate formControlName="projectEndDateto" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!projectStartDate.value" matIconSuffix [for]="endpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #endpicker></mat-date-range-picker>
+              <mat-icon *ngIf="projectEndDate.value" matSuffix color="warn"
+                (click)="[clearFormField('projectEndDate'),clearFormField('projectEndDateto')]">close</mat-icon>
+
+            </mat-form-field>
+
+          
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Resource Start Date</mat-label>
+              <mat-date-range-input [rangePicker]="resourcepicker" [max]="maxDate">
+                <input matStartDate formControlName="resourceStartDate">
+                <input #resourceStartDate matEndDate formControlName="resourceStartDateto" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!resourceStartDate.value" matIconSuffix [for]="resourcepicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #resourcepicker></mat-date-range-picker>
+              <mat-icon *ngIf="resourceStartDate.value" matSuffix color="warn"
+                (click)="[clearFormField('resourceStartDate'),clearFormField('resourceStartDateto')]">close</mat-icon>
+
+            </mat-form-field>
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Resource End Date</mat-label>
+              <mat-date-range-input [rangePicker]="resourceendpicker" [max]="maxDate">
+                <input matStartDate formControlName="resourceEndDate">
+                <input #resourceEndDate matEndDate formControlName="resourceEndDateto" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!resourceEndDate.value" matIconSuffix [for]="resourceendpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #resourceendpicker></mat-date-range-picker>
+              <mat-icon *ngIf="resourceEndDate.value" matSuffix color="warn"
+                (click)="[clearFormField('resourceEndDate'),clearFormField('resourceEndDateto')]">close</mat-icon>
+
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Region" formControlName="regionId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let region of regionList" [value]="region.regionId">{{region.region}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+         
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Location" formControlName="locationTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let loc of loclist" [value]="loc.locationTypeId">{{loc.locationId}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+         
+            
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="LocationDes" formControlName="locationTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let loc of loclist" [value]="loc.locationTypeId">{{loc.locationDescription}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+         
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="JobCode" formControlName="jobCodeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let job of joblist" [value]="job.jobCodeId">{{job.jobCode}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+         
+            
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="JobCode Desc" formControlName="jobCodeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let job of joblist" [value]="job.jobCodeId">{{job.jobDescription}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+             <mat-form-field class="filterRow-form-field">
+              <mat-label>Billable</mat-label>
+              <mat-select formControlName="billable" (selectionChange)="customFilter()">
+                <mat-option value="">None</mat-option>
+                <mat-option value="true">Yes</mat-option>
+                <mat-option value="false">No</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Client Project Role</mat-label>
+              <input #clientProjectRole matInput type="text" formControlName="clientProjectRole" (keyup)="customFilter()">
+              <mat-icon *ngIf="clientProjectRole.value" matSuffix color="warn"
+                (click)="clearFormField('clientProjectRole')">close</mat-icon>
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Client Project Role Desc </mat-label>
+              <input #clientProjectRoleDesc  matInput type="text" formControlName="clientProjectRoleDesc" (keyup)="customFilter()">
+              <mat-icon *ngIf="clientProjectRoleDesc.value" matSuffix color="warn"
+              (click)="clearFormField('clientProjectRoleDesc')">close</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Alias Name</mat-label>
+              <input #aliasName matInput type="text" formControlName="aliasName" (keyup)="customFilter()">
+              <mat-icon *ngIf="aliasName.value" matSuffix color="warn"
+                (click)="clearFormField('aliasName')">close</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Billrate</mat-label>
+              <input #billRate matInput type="text" formControlName="billRate" (keyup)="customFilter()">
+              <mat-icon *ngIf="billRate.value" matSuffix color="warn"
+                (click)="clearFormField('billRate')">close</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Hours</mat-label>
+              <input #hours matInput type="text" formControlName="hours" (keyup)="customFilter()">
+              <mat-icon *ngIf="hours.value" matSuffix color="warn"
+                (click)="clearFormField('hours')">close</mat-icon>
+            </mat-form-field>
+
+
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Total Billed hrs</mat-label>
+              <input #totalBilledhrs matInput type="text" formControlName="totalBilledhrs" (keyup)="customFilter()">
+              <mat-icon *ngIf="totalBilledhrs.value" matSuffix color="warn"
+                (click)="clearFormField('totalBilledhrs')">close</mat-icon>
+            </mat-form-field>
+
+
+            <!-- <mat-form-field class="filterRow-form-field">
+              <mat-label>Frequency</mat-label>
+              <input #frequency matInput type="text" formControlName="frequency" (keyup)="customFilter()">
+              <mat-icon *ngIf="frequency.value" matSuffix color="warn"
+                (click)="clearFormField('frequency')">close</mat-icon>
+            </mat-form-field> -->
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Frequency" formControlName="frequencyId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let emp of freqlist" [value]="emp.frequencyId" >{{emp.frequency}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label>Currency</mat-label>
+              <input #currency matInput type="text" formControlName="currency" (keyup)="customFilter()">
+              <mat-icon *ngIf="currency.value" matSuffix color="warn"
+                (click)="clearFormField('currency')">close</mat-icon>
+            </mat-form-field>
+         
+            
+
+             <mat-form-field class="filterRow-form-field">
+              <mat-label>Allocation %tage</mat-label>
+              <input #allocationPercentage matInput type="text" formControlName="allocationPercentage" (keyup)="customFilter()">
+              <mat-icon *ngIf="allocationPercentage.value" matSuffix color="warn"
+                (click)="clearFormField('allocationPercentage')">close</mat-icon>
+            </mat-form-field>
+         
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="ManagerId" formControlName="usttpmId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let tpm of ustTpmList" [value]="tpm.usttpmId">{{tpm.usttpmuid}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Manager Name" formControlName="usttpmId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let tpm of ustTpmList" [value]="tpm.usttpmId">{{tpm.usttpmName}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+      
+
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Hire Date</mat-label>
+              <mat-date-range-input [rangePicker]="joinpicker" [max]="maxDate">
+                <input matStartDate formControlName="joiningDate">
+                <input #joiningDate matEndDate formControlName="joiningDateTo" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!joiningDate.value" matIconSuffix [for]="joinpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #joinpicker></mat-date-range-picker>
+              <mat-icon *ngIf="joiningDate.value" matSuffix color="warn"
+                (click)="[clearFormField('joiningDate'),clearFormField('joiningDateTo')]">close</mat-icon>
+
+            </mat-form-field>
+            <mat-form-field class="filterRow-form-field_DtRange">
+              <mat-label>Termination Date</mat-label>
+              <mat-date-range-input [rangePicker]="termpicker" [max]="maxDate">
+                <input matStartDate formControlName="terminationDate">
+                <input #terminationDate  matEndDate formControlName="terminationDateTo" (dateChange)="customFilter()">
+              </mat-date-range-input>
+              <mat-datepicker-toggle *ngIf="!terminationDate.value" matIconSuffix [for]="termpicker"></mat-datepicker-toggle>
+              <mat-date-range-picker #termpicker></mat-date-range-picker>
+              <mat-icon *ngIf="terminationDate .value" matSuffix color="warn"
+                (click)="[clearFormField('terminationDate '),clearFormField('terminationDateTo')]">close</mat-icon>
+
+            </mat-form-field>
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="BusinessUnit" formControlName="bussinessUnitId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let bu of BUlist" [value]="bu.bussinessUnitId">{{bu.bussinessUnit}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="BU Desc" formControlName="bussinessUnitId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let bu of BUlist" [value]="bu.bussinessUnitId">{{bu.bussinessUnitDescription}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+      
+         
+           
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="Department" formControlName="departmentTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let dept of deptlist" [value]="dept.departmentTypeId">{{dept.departmentId}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+
+              <mat-select placeholder="DepartmentDesc" formControlName="departmentTypeId" (selectionChange)="customFilter()">
+      
+                <mat-option [value]=" ">None</mat-option>
+      
+                <mat-option *ngFor="let dept of deptlist" [value]="dept.departmentTypeId">{{dept.departmentDescription}}</mat-option>
+      
+              </mat-select>
+      
+            </mat-form-field>
+
+
+            <mat-form-field class="filterRow-form-field">
+              <mat-label> Comments</mat-label>
+              <input #comments matInput type="text" formControlName="comments" (keyup)="customFilter()">
+              <mat-icon *ngIf="comments.value" matSuffix color="warn"
+                (click)="clearFormField('comments')">close</mat-icon>
+            </mat-form-field> 
+
+
+            <mat-icon matSuffix color="warn" (click)="restCustomFilter()" matTooltip="Clear filters">close</mat-icon>
+          </form>
+        </div> 
+
+
+
+    <!-- MAT TABLE -->
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+          <ng-container matColumnDef="candidateUid">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Employee Id
+            </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell-email">
+              <div *ngIf="!row.isEditing">
+                {{row.candidateUid}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-label>Employee Id</mat-label>
+                  <mat-select placeholder="candidateUid" [(ngModel)]="row.candidateId">
+                    <mat-option *ngFor="let loc of candidatelist" [value]="loc.candidateId">
+                      {{ loc.candidateUid }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+         
+       
+          <ng-container matColumnDef="candidateName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.candidateName}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="candidateName" [(ngModel)]="row.candidateId">
+                      <mat-option *ngFor="let loc of candidatelist" [value]="loc.candidateId">
+                        {{ loc.candidateName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+          <ng-container matColumnDef="employeeType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Employee Type
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div matTooltip="{{row.employeeType}}" *ngIf="!row.isEditing">
+                  {{row.employeeType}}
+                </div>
+                <div *ngIf="row.isEditing" >
+                  <mat-form-field>
+                    <mat-label>Employee Type</mat-label>
+                    <mat-select placeholder="employeeType" [(ngModel)]="row.employeeId">
+                      <mat-option *ngFor="let loc of emplist" [value]="loc.employeeId">
+                        {{ loc.employeeType }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="obu">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                OBU
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div matTooltip="{{row.obu}}" *ngIf="!row.isEditing">
+                  {{row.obu}}
+                </div>
+                <div *ngIf="row.isEditing" >
+                  <mat-form-field>
+                    <mat-label>OBU</mat-label>
+                    <input matInput [(ngModel)]="row.obu">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="obuDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                OBU Description
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div matTooltip="{{row.obuDescription}}" *ngIf="!row.isEditing">
+                  {{row.obuDescription}}
+                </div>
+                <div *ngIf="row.isEditing" >
+                  <mat-form-field>
+                    <mat-label>OBU Description</mat-label>
+                    <input matInput [(ngModel)]="row.obuDescription">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+          
+          <ng-container matColumnDef="customerId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Customer Id
+              
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div matTooltip="{{row.customerId}}" *ngIf="!row.isEditing">
+                  {{row.customerId}}
+                </div>
+                <div *ngIf="row.isEditing" style="size: 7px;">
+                  <mat-form-field>
+                    <mat-label>Customer Id</mat-label>
+                    <mat-select placeholder="customerId" [(ngModel)]="row.customerTypeId">
+                      <mat-option *ngFor="let loc of cuslist" [value]="loc.customerTypeId">
+                        {{ loc.customerId }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+      
+            <ng-container matColumnDef="customerName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.customerName}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="customerName" [(ngModel)]="row.customerTypeId">
+                      <mat-option *ngFor="let loc of cuslist" [value]="loc.customerTypeId">
+                        {{ loc.customerName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+        
+       
+          <ng-container matColumnDef="projectId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Id </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.projectId}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-select placeholder="projectId" [(ngModel)]="row.projectTypeId">
+                    <mat-option *ngFor="let loc of prolist" [value]="loc.projectTypeId">
+                      {{ loc.projectId }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+        
+          <ng-container matColumnDef="projectDescription">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Description </th>
+            <td mat-cell *matCellDef="let row">
+              <div *ngIf="!row.isEditing">
+                {{row.projectDescription}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-select placeholder="projectDescription" [(ngModel)]="row.projectTypeId">
+                    <mat-option *ngFor="let loc of prolist" [value]="loc.projectTypeId">
+                      {{ loc.projectDescription }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="contractCategory">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract Category </th>
+            <td mat-cell *matCellDef="let row" class="address-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.contractCategory}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-select placeholder="contractCategory" [(ngModel)]="row.contractCategoryId">
+                    <mat-option *ngFor="let loc of catlist" [value]="loc.contractCategoryId">
+                      {{ loc.contractCategory }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          
+          <ng-container matColumnDef="projectManagerId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> projectManager Id </th>
+            <td mat-cell *matCellDef="let row" class="truncate-cell">
+              <div *ngIf="!row.isEditing">
+                {{row.projectManagerId}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <mat-form-field>
+                  <mat-select placeholder="projectManagerId" [(ngModel)]="row.projectManagerTypeId">
+                    <mat-option *ngFor="let loc of managerlist" [value]="loc.projectManagerTypeId">
+                      {{ loc.projectManagerId }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="projectManagerName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> projectManager Name </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.projectManagerName}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="projectManagerName" [(ngModel)]="row.projectManagerTypeId">
+                      <mat-option *ngFor="let loc of managerlist" [value]="loc.projectManagerTypeId">
+                        {{ loc.projectManagerName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="projectStartDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Start Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.projectStartDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <mat-select placeholder="projectStartDate" [(ngModel)]="row.projectManagerTypeId">
+                      <mat-option *ngFor="let loc of managerlist" [value]="loc.projectManagerTypeId">
+                        {{ loc.projectStartDate }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="projectEndDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Project End Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.projectEndDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <mat-select placeholder="projectEndDate" [(ngModel)]="row.projectManagerTypeId">
+                      <mat-option *ngFor="let loc of managerlist" [value]="loc.projectManagerTypeId">
+                        {{ loc.projectEndDate }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="resourceStartDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource Start Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.resourceStartDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <input matInput [matDatepicker]="picker3" [(ngModel)]="row.resourceStartDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="resourceEndDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Resource End Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.resourceEndDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <input matInput [matDatepicker]="picker4" [(ngModel)]="row.resourceEndDate">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="region">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.region}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="region" [(ngModel)]="row.regionId">
+                      <mat-option *ngFor="let loc of regionList" [value]="loc.regionId">
+                        {{ loc.region }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="locationId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> location</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.locationId}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="locationId" [(ngModel)]="row.locationTypeId">
+                      <mat-option *ngFor="let loc of loclist" [value]="loc.locationTypeId">
+                        {{ loc.locationId }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="locationDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Location Descr </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.locationDescription}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="locationDescription" [(ngModel)]="row.locationTypeId">
+                      <mat-option *ngFor="let loc of loclist" [value]="loc.locationTypeId">
+                        {{ loc.locationDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+
+
+
+
+
+
+            <ng-container matColumnDef="jobCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>  Job Code </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.jobCode}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="jobCode" [(ngModel)]="row.jobCodeId">
+                      <mat-option *ngFor="let loc of joblist" [value]="loc.jobCodeId">
+                        {{ loc.jobCode }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="jobDescription">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> jobDescription </th>
+                <td mat-cell *matCellDef="let row" class="truncate-cell">
+                  <div *ngIf="!row.isEditing">
+                    {{row.jobDescription}}
+                  </div>
+                  <div *ngIf="row.isEditing">
+                    <mat-form-field>
+                      <mat-select placeholder="jobDescription" [(ngModel)]="row.jobCodeId">
+                        <mat-option *ngFor="let loc of joblist" [value]="loc.jobCodeId">
+                          {{ loc.jobDescription }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </td>
+              </ng-container>
+
+         
+          <ng-container matColumnDef="billable">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Billable? </th>
+            <td mat-cell *matCellDef="let row" class="billable">
+              <div *ngIf="!row.isEditing">
+                {{row.billable?"Yes":"No"}}
+              </div>
+              <div *ngIf="row.isEditing">
+                <p><mat-checkbox [(ngModel)]="row.billable"
+                    matTooltip="Check if Candidate is a Billable resource">Billable?</mat-checkbox></p>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="clientProjectRole">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>  Client Project Role </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.clientProjectRole}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.clientProjectRole">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="clientProjectRoleDesc">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Project Role Desc</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.clientProjectRoleDesc}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.clientProjectRoleDesc">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+          <ng-container matColumnDef="aliasName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Alias Name </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.aliasName}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.aliasName">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="billRate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Bill Rate </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.billRate}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.billRate">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="hours">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hours </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.hours}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.hours">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalBilledhrs">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Billed hrs </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.totalBilledhrs}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.totalBilledhrs">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="frequency">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Frequency </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.frequency}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="frequency" [(ngModel)]="row.frequencyId">
+                      <mat-option *ngFor="let loc of freqlist" [value]="loc.frequencyId">
+                        {{ loc.frequency }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="currency">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Currency </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.currency}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.currency">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="allocationPercentage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Allocation %tage</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.allocationPercentage}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.allocationPercentage">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="usttpmuid">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Manager ID
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.usttpmuid}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="usttpmuid" [(ngModel)]="row.usttpmId">
+                      <mat-option *ngFor="let loc of ustTpmList" [value]="loc.usttpmId">
+                        {{ loc.usttpmuid }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="usttpmName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Manager Name
+              </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.usttpmName}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="usttpmName" [(ngModel)]="row.usttpmId">
+                      <mat-option *ngFor="let loc of ustTpmList" [value]="loc.usttpmId">
+                        {{ loc.usttpmName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="joiningDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Hire Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.joiningDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <mat-select placeholder="joiningDate" [(ngModel)]="row.candidateId">
+                      <mat-option *ngFor="let loc of candidatelist" [value]="loc.candidateId">
+                        {{ loc.joiningDate }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="terminationDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Termination Date </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.terminationDate|date:'dd/MM/yyyy'}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-label>Select Date</mat-label>
+                    <mat-select placeholder="terminationDate" [(ngModel)]="row.candidateId">
+                      <mat-option *ngFor="let loc of candidatelist" [value]="loc.candidateId">
+                        {{ loc.terminationDate }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bussinessUnit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Bussiness Unit </th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.bussinessUnit}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="bussinessUnit" [(ngModel)]="row.bussinessUnitId">
+                      <mat-option *ngFor="let loc of BUlist" [value]="loc.bussinessUnitId">
+                        {{ loc.bussinessUnit }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="bussinessUnitDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> BU Descr
+</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.bussinessUnitDescription}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="bussinessUnitDescription" [(ngModel)]="row.bussinessUnitId">
+                      <mat-option *ngFor="let loc of BUlist" [value]="loc.bussinessUnitId">
+                        {{ loc.bussinessUnitDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="departmentId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Id</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.departmentId}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="departmentId" [(ngModel)]="row.departmentTypeId">
+                      <mat-option *ngFor="let loc of deptlist" [value]="loc.departmentTypeId">
+                        {{ loc.departmentId }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="departmentDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Department Description
+</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.departmentDescription}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <mat-select placeholder="departmentDescription" [(ngModel)]="row.departmentTypeId">
+                      <mat-option *ngFor="let loc of deptlist" [value]="loc.departmentTypeId">
+                        {{ loc.departmentDescription }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Comments
+</th>
+              <td mat-cell *matCellDef="let row" class="truncate-cell">
+                <div *ngIf="!row.isEditing">
+                  {{row.comments}}
+                </div>
+                <div *ngIf="row.isEditing">
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="row.comments">
+                  </mat-form-field>
+                </div>
+              </td>
+            </ng-container>
+
+          <!-- actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let row" class="actions-cell">
+              <!-- primary actions -->
+              <ng-container *ngIf="!row.isEditing">
+                <button mat-icon-button color="primary" (click)="selectRow(row)" matTooltip="Update Candidate detail/s">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteDetails(row)" matTooltip="Delete Candidate">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-container>
+              <!-- After Update enabled -->
+              <ng-container *ngIf="row.isEditing">
+                <button mat-icon-button (click)="UpdatebillingData(row)" matTooltip="Save Changes"
+                  matTooltipPosition="left" color="primary">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-icon-button (click)="cancelUpdate(row)" matTooltip="Cancel Changes" matTooltipPosition="left"
+                  color="warn">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </ng-container>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter</td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-paginator id="paginator" [pageSize]="25" [pageSizeOptions]="[5,15, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+</div>

@@ -1,0 +1,104 @@
+.candidatemappingcard {
+  margin-top: 6%;
+}
+
+h2 {
+  padding-top: 1%;
+  text-align: center;
+  color: #006E74;
+}
+
+.modal-container {
+  padding: 20px;
+}
+mat-autocomplete {
+  z-index: 1000; /* Adjust the value as needed */
+}
+
+
+form {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: auto;
+}
+
+.btngrp {
+  justify-content: center;
+  display: flex;
+  margin: 0 2% 0;
+}
+
+#btn {
+  background-color: #006E74;
+  color: white;
+  margin: 0 2% 2%;
+}
+
+.mdc-data-table__header-row {
+  height: 35px;
+  background-color: #006E74;
+  text-align: center;
+
+  .mdc-data-table__header-cell {
+    color: white;
+    /* font-size: 12px; */
+  }
+}
+
+mat-paginator {
+  font-size: 15px;
+}
+
+.mdc-data-table__row {
+  height: 30px;
+  background-color: white;
+}
+
+.table-container {
+  display: block;
+  width: 100%;
+  justify-content: center;
+
+}
+
+mat-label {
+  font-size: 14px;
+}
+
+mat-icon {
+  margin-top: 10px;
+}
+
+.mat-column-soName,
+.mat-column-candidateName,
+.mat-column-status,
+.mat-column-actions {
+  border: 0.2px solid currentColor;
+  text-align: center;
+
+}
+
+::ng-deep.mat-sort-header-arrow {
+  opacity: 1 !important;
+  color: white !important;
+  size: 12px;
+}
+
+.nav {
+  padding-left: 20px;
+
+}
+
+.mat-mdc-form-field {
+
+  padding-right: 30px;
+}
+
+
+@media screen and (max-width: 600px) {
+  .mapcandidate {
+    padding-top: 10%;
+  }
+}

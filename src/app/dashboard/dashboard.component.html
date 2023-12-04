@@ -1,0 +1,67 @@
+<div class="dashboard">
+  <mat-tab-group>
+    <mat-tab label="SOW">
+      <div class="container">
+        <div class="period-selection">
+          <mat-label>Period   </mat-label>
+          <mat-form-field appearance="outline">
+            <mat-select [formControl]="selectFormControl" #period (selectionChange)="selectionChange(period.value)">
+              <mat-option value="Weekly">Weekly</mat-option>
+              <mat-option value="Monthly">Monthly</mat-option>
+              <mat-option value="Quarterly">Quarterly</mat-option>
+              <mat-option value="Fortnight">Fortnight</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span class="date">{{this.startdate}}-{{this.enddate}}</span>
+         
+        </div>
+
+        <div class="chart-container">
+          <div class="chart">
+            <div class="chart-card">
+              <h2 id="chartHeader">Status</h2>
+
+              <canvas *ngIf="!statusCount " id="pieChartStatus" width="300" height="300"></canvas>
+
+              <h1 *ngIf="statusCount " style="color: red;text-align: center;font-size: 15px;"><b>Insufficient Data</b>
+              </h1>
+
+
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="chart-card">
+              <h2 id="chartHeader">Domain</h2>
+              <canvas *ngIf="!statusCount" id="pieChartDomain" width="300" height="300"></canvas>
+
+              <h1 *ngIf="statusCount " style="color: red;text-align: center;font-size: 15px;"><b>Insufficient Data</b>
+              </h1>
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="chart-card">
+              <h2 id="chartHeader">Region</h2>
+              <canvas *ngIf="!statusCount" id="pieChartRegion" width="300" height="300"></canvas>
+
+              <h1 *ngIf="statusCount " style="color: red;text-align: center;font-size: 15px;"><b>Insufficient Data</b>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Candidate">
+
+
+      <div class="chart">
+        <h2>Candidate Tab </h2>
+        <p>This is the content for the "Candidate" tab.</p>
+        <canvas id="pieChartCandidate" width="300" height="300"></canvas>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

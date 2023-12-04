@@ -1,0 +1,193 @@
+.admintabs{
+  padding-top: 100px;
+}
+.tab1{
+  width:max-content;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 10px;
+}
+
+.mat-header-row {
+  background-color: #e0e0e0;
+}
+
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.mat-row:hover {
+  background-color: #e8f0fe;
+}
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+
+}
+
+.center-table {
+  display: flex;
+  justify-content: center;
+}
+.colname
+{
+  background-color: #006E74 !important;
+  color: white;
+}
+
+
+  .header-cell {
+    background-color: #006E74 !important;
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.477);
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.429);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .td-row{
+    border:1px solid rgba(0, 0, 0, 0.477) !important ;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-top: 10px;
+  }
+
+  .add-form {
+    display: inline-block;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 250px;
+    margin-top: 16px;
+    position: fixed;
+  }
+
+  .add-form h3 {
+    margin-top: 0;
+  }
+
+  .form-actions {
+    margin-top: 16px;
+    text-align: left;
+  }
+
+  .form-actions button {
+    margin-left: 8px;
+  }
+
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.center-table {
+
+  overflow-y: auto;
+
+}
+#reset{
+  padding-left: 20px;
+}
+.adminpage{
+  justify-content: center;
+  align-items: center;
+  height: max-content;
+  width: auto;
+  caret-color: transparent;
+
+}
+.firstrow {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+  padding-top: 4%;
+}
+
+.add-button {
+  display: flex;
+  width: max-content;
+
+  justify-content: flex-start;
+}
+.search-bar {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-end;
+}
+
+
+@media screen and (max-width: 600px){
+
+  .table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table-container th {
+    background-color: #f2f2f2;
+    padding: 8px;
+  }
+
+  .table-container td {
+    padding: 8px;
+  }
+  .adminpage{
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    width: auto;
+    padding-top: 1%;
+
+  }
+  .sonew, .candidatenew{
+    padding-top: 10%;
+  }
+  .firstrow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 15%;
+  }
+
+  .add-button {
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+
+  .search-bar {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .add-form {
+    display: inline-block;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 250px;
+    margin-top: 16px;
+    position:relative;
+  }
+
+}

@@ -1,0 +1,33 @@
+<br><br><br><br>
+
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input #inputFilter matInput (keyup)="applyFilter(inputFilter.value)" placeholder="Filter">
+    </mat-form-field>
+    <button class="btngrp" id="btn" mat-raised-button routerLink="/billinglist">Add Billing
+      <mat-icon>add</mat-icon></button>
+  </div>
+  <mat-table class="table-container" #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="ProjectID">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Project Id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="DellManagerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> DellManager Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.dellManagerName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ProjectDescription">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Project Description </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectDescription}} </mat-cell>
+    </ng-container>
+
+   
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClick(row)"></mat-row>
+  </mat-table>
+</div>
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25,50,100]" aria-label="Select page of users"></mat-paginator>

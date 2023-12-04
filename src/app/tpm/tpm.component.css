@@ -1,0 +1,20 @@
+.example-container {
+  margin: 0 6% 1% 6%;
+}
+
+mat-header-row {
+  font-weight: 500;
+}
+
+.table-container :hover {
+  background-color: #006e740a;
+  height: max-content;
+}
+
+
+#btn {
+ 
+  background-color: #006E74;
+  color: white;
+  
+}

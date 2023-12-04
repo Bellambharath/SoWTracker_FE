@@ -1,0 +1,318 @@
+<div class="solistbody">
+    <form [formGroup]="SowForm" >
+      <mat-card class="shipping-card">
+        <mat-card-header class="sodetailsheader">
+          <mat-card-title>Add <span id="gapso"> SO</span></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Domain Name</mat-label>
+                  <input matInput placeholder="Enter Domain Name" formControlName="soName">
+                  <mat-error *ngIf="SowForm.controls['soName'].hasError('required')">
+                    <small>*Domain Name is required</small>
+                  </mat-error>
+              </mat-form-field>
+          </div>
+            <div class="col" >
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>JR Code</mat-label>
+                <input matInput placeholder="Enter JR Code" formControlName="jrCode">
+                <mat-error *ngIf="SowForm.controls['jrCode'].hasError('required')">
+                    <small>*JR Code is required</small>
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+          <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Request Creation Date</mat-label>
+        <input matInput [matDatepicker]="picker" [max]="maxDate" placeholder="Enter Request Creation Date" formControlName="requestCreationDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="SowForm.controls['requestCreationDate'].hasError('required')">
+        <small>*Request Creation Date is
+            required</small>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>OnBoarding Date</mat-label>
+        <input matInput [matDatepicker]="aa" [max]="maxDate" placeholder="Enter OnBoarding Date" formControlName="onboardingdate">
+        <mat-datepicker-toggle matSuffix [for]="aa"></mat-datepicker-toggle>
+        <mat-datepicker #aa></mat-datepicker>
+        <mat-error *ngIf="SowForm.controls['onboardingdate'].hasError('required')">
+        <small>*onboarding date is
+            required</small>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+
+            <div class="col ">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Account</mat-label>
+                <mat-select placeholder="Select an Account" formControlName="accountId">
+                  <mat-option *ngFor="let acc of accountList" value="{{acc.accountId}}">
+                    {{acc.accountName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['accountId'].hasError('required')">
+                  <small>*Account Name is required</small>
+
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Technology</mat-label>
+                <mat-select placeholder="Select a Technology" formControlName="technologyId">
+                  <mat-option *ngFor="let tech of technologyList" value="{{tech.technologyId}}">
+                    {{tech.technologyName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['technologyId'].hasError('required')">
+                   <small>*Technology is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Role/Technology Details</mat-label>
+                <input matInput placeholder="Enter Role/Technology Details" formControlName="role">
+                <mat-error *ngIf="SowForm.controls['role'].hasError('required')">
+                  <small>*Role is required</small>
+
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Region</mat-label>
+                <mat-select placeholder="Enter Region" formControlName="regionId">
+                  <mat-option *ngFor="let region of regionList" value="{{region.regionId}}">
+                    {{region.region}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['regionId'].hasError('required')">
+                  <small>*Region is required</small>
+
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Location</mat-label>
+                <mat-select placeholder=" Select the Location" formControlName="locationId">
+                  <mat-option  *ngFor="let location of locationList" value="{{location.locationId}}">
+                    {{location.location}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['locationId'].hasError('required')">
+                  <small>*Location is required</small>
+
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Target Open Positions</mat-label>
+                <input matInput placeholder=" Enter Target Open Positions" formControlName="targetOpenPositions">
+                <mat-error *ngIf="SowForm.controls['targetOpenPositions'].hasError('required')">
+                  <small>*Target Open Positions is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Positions to be Closed</mat-label>
+                <input matInput placeholder=" Enter Positions to be Closed" formControlName="positionsTobeClosed">
+                <mat-error *ngIf="SowForm.controls['positionsTobeClosed'].hasError('required')">
+                  <small>*Positions to be Closed is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>USTPOC</mat-label>
+                <mat-select placeholder=" Enter USTPOC" formControlName="ustpocId">
+                  <mat-option *ngFor="let poc of ustPocList" value="{{poc.ustpocId}}">
+                    {{poc.ustpocName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['ustpocId'].hasError('required')">
+                  <small>*USTPOC is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Recruiter</mat-label>
+                <mat-select placeholder=" Enter Recruiter" formControlName="recruiterId">
+                  <mat-option *ngFor="let rec of recruiterList" value="{{rec.recruiterId}}">
+                    {{rec.recruiterName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['recruiterId'].hasError('required')">
+                  <small>*Recruiter is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>USTTPM</mat-label>
+                <mat-select placeholder="Select the USTTPM" formControlName="usttpmId">
+                  <mat-option *ngFor="let tpm of ustTpmList" value="{{tpm.usttpmId}}">
+                    {{tpm.usttpmName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['usttpmId'].hasError('required')">
+                  <small>*UST TPM is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Dell Manager</mat-label>
+                <mat-select placeholder=" Enter Dell Manager" formControlName="dellManagerId">
+                  <mat-option *ngFor="let dell of dellManagerList" value="{{dell.dellManagerId}}">
+                    {{dell.dellManagerName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['dellManagerId'].hasError('required')">
+                  <small>*Dell Manager is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select placeholder="Select the Status" formControlName="statusId">
+                  <mat-option *ngFor="let status of statusList" value="{{status.statusId}}">
+                    {{status.statusName}}
+                  </mat-option>
+              </mat-select>
+               <mat-error *ngIf="SowForm.controls['statusId'].hasError('required')">
+                  <small>*Status is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Band</mat-label>
+                <input matInput placeholder="Enter Band" formControlName="band">
+                <mat-error *ngIf="SowForm.controls['band'].hasError('required')">
+                  <small>*Band is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Project Id</mat-label>
+                <input matInput placeholder="Enter Project Id" formControlName="projectId">
+                <mat-error *ngIf="SowForm.controls['projectId'].hasError('required')">
+                  <small>*ProjectId is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Account Manager</mat-label>
+                <input matInput placeholder=" Enter Account Manager" formControlName="accountManager">
+                <mat-error *ngIf="SowForm.controls['accountManager'].hasError('required')">
+                  <small>*Account Manager is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>External Resource</mat-label>
+                <input matInput placeholder="Enter External Resource" formControlName="externalResource">
+                <mat-error *ngIf="SowForm.controls['externalResource'].hasError('required')">
+                  <small>* External Resource is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Internal Resource</mat-label>
+                <input matInput placeholder="Enter Internal Resource"  formControlName="internalResource">
+                <mat-error *ngIf="SowForm.controls['internalResource'].hasError('required')">
+                  <small>*Internal Resource is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            
+              <div class="col">
+                  <p><mat-checkbox formControlName="isOnHold"
+                          >IsOnHold</mat-checkbox></p>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>ageingColor</mat-label>
+                <input matInput placeholder="Enter ageingColor" formControlName="ageingColor">
+                <mat-error *ngIf="SowForm.controls['ageingColor'].hasError('required')">
+                  <small>*ageingColor is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>jobDesc</mat-label>
+                <input matInput placeholder="Enter jobDesc" formControlName="jobDesc">
+                <mat-error *ngIf="SowForm.controls['jobDesc'].hasError('required')">
+                  <small>*jobDesc is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Roledetails</mat-label>
+                <mat-select placeholder=" Enter Roledetails" formControlName="roleDetailsId">
+                  <mat-option *ngFor="let poc of roledetailslist" value="{{poc.roleDetailsId}}">
+                    {{poc.roleDetailsName}}
+                  </mat-option>
+              </mat-select>
+                <mat-error *ngIf="SowForm.controls['roleDetailsId'].hasError('required')">
+                  <small>*USTPOC is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Experienceinyears</mat-label>
+                <input matInput placeholder="Enter experienceinyears" formControlName="experienceinyears">
+                <mat-error *ngIf="SowForm.controls['experienceinyears'].hasError('required')">
+                  <small>*ageingColor is required</small>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          
+        </mat-card-content>
+        <mat-card-actions class="actions-container">
+          <button mat-raised-button color="primary" (click)="onSubmit()" type="submit">Submit</button>
+          <!-- <button mat-raised-button color="warn" (click)="cancel()" type="cancel">Cancel</button> -->
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>

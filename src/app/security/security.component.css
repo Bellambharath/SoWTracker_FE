@@ -1,0 +1,136 @@
+.mat-grid {
+    border: 1px solid;
+    width: max-content;
+    border-collapse: collapse;
+  }
+  
+  .icons {
+    height: 20px;
+    width: 25px;
+  }
+  
+  /* .button {
+    margin-left: 2px;
+    margin-bottom: 5px;
+    margin-top: 7px;
+    border:1px;
+  } */
+  
+  .outercard{
+    margin-top: 6%;
+    margin-bottom: 2%;
+
+  }
+  * {
+    box-sizing: border-box;
+  }
+
+  mat-form-field{
+    display: block;
+  }
+
+  mat-card{
+    width:40%;
+    margin: auto;
+    padding: 10px;
+    border:2px solid Black;
+    margin-top:3%;
+    text-align:center;
+  }
+  
+  /* mat-form-field,
+  textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+   
+    padding: 1px;
+  }
+   */
+  /* label {
+    display: inline-block;
+  } */
+  
+  button[type="submit"] {
+    
+    padding: 2px 2px;
+    border: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+    float: right;
+  }
+  
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+  }
+  
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+  }
+  
+  .col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+  }
+  
+  .row::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .col-25,
+    .col-75,
+    button[type="submit"] {
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+  
+  #downloadbtn {
+    color: black;
+  }
+  
+  .tbl-fixed {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: fit-content;
+    max-height: 200px;
+  }
+  
+  table {
+    min-width: max-content;
+    border-collapse: separate;
+    margin-top: 5px;
+  }
+  
+  table th {
+    position: sticky;
+    top: 0px;
+    background: #504f4f;
+    color: #fff;
+    text-align: center;
+  }
+  
+  table td {
+    text-align: center;
+    padding: 1px;
+  }
+  
+  
+  mat-label {
+    /* padding: 12px 12px 12px 0; */
+    display: inline-block;
+  }
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+  

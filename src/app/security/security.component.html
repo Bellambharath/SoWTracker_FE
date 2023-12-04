@@ -1,0 +1,70 @@
+
+<mat-card class="outercard">
+
+    <h2>Security Questions</h2>
+    <form [formGroup]="securityForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Select a Question</mat-label>
+        <mat-select formControlName="selected1">
+          <mat-option *ngFor="let q of questions" [value]="q.questionId" >{{ q.question }}</mat-option>
+
+          <!-- <mat-option *ngFor="let q of questions" [value]="q.questionId" (click)="getRandomSecurityQuestions(LoginId)">{{ q.question }}</mat-option> -->
+  
+        </mat-select>
+      </mat-form-field>
+      
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Your Answer</mat-label>
+        <input matInput formControlName="ans1">
+        <mat-error *ngIf="securityForm.get('ans1')?.hasError('required')">Answer is required</mat-error>
+      </mat-form-field>
+      
+      <!-- Repeat the same changes for the other two questions -->
+      
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Select a Question</mat-label>
+        <mat-select formControlName="selected2">
+          <mat-option *ngFor="let q of questions" [value]="q.questionId" >{{ q.question }}</mat-option>
+  
+        </mat-select>
+      </mat-form-field>
+      
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Your Answer</mat-label>
+        <input matInput formControlName="ans2">
+        <mat-error *ngIf="securityForm.get('ans2')?.hasError('required')">Answer is required</mat-error>
+      </mat-form-field>
+      
+      <!-- Repeat the same changes for the other two questions -->
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Select a Question</mat-label>
+        <mat-select formControlName="selected3">
+          <mat-option *ngFor="let q of questions" [value]="q.questionId">{{ q.question }}</mat-option>
+  
+        </mat-select>
+      </mat-form-field>
+      
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Your Answer</mat-label>
+        <input matInput formControlName="ans3">
+        <mat-error *ngIf="securityForm.get('ans3')?.hasError('required')">Answer is required</mat-error>
+      </mat-form-field>
+      
+      <!-- Repeat the same changes for the other two questions -->
+      
+    </form>
+    <button type="submit" mat-raised-button color="primary"  [disabled]="!securityForm.valid" (click)="onSubmit()">Submit</button>
+   
+    
+  </mat-card>
+  
+  
+  
+  
+  
+   

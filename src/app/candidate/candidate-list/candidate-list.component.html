@@ -1,0 +1,159 @@
+<div class="solistbody">
+    <form [formGroup]="candidateform">
+        <mat-card class="shipping-card">
+            <mat-card-header class="sodetailsheader">
+                <mat-card-title>Add<span id="gapcandidate">Candidate</span> </mat-card-title>
+            </mat-card-header>
+            <mat-card>
+                <mat-card-content>
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Candidate UID</mat-label>
+                                <input matInput placeholder="Candidate UID" formControlName="candidateUid">
+                                <mat-error *ngIf="candidateform.controls['candidateUid'].hasError('required')">
+                                    <small>*Candidate UID is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Candidate Name</mat-label>
+                                <input matInput placeholder="Candidate Name" formControlName="candidateName">
+                                <mat-error *ngIf="candidateform.controls['candidateName'].hasError('required')">
+                                    <small>*Candidate Name is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Select Date of Birth</mat-label>
+                                <input matInput [matDatepicker]="picker"  [max]="maxDate"  placeholder=" Select Date of Birth"
+                                    formControlName="dob">
+                                <mat-hint align="end"><small>MM/DD/YYYY</small></mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #picker></mat-datepicker>
+                                <mat-error *ngIf="candidateform.controls['dob'].hasError('required')">
+                                    <small>*Date of Birth is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Email" formControlName="email">
+                                <mat-error *ngIf="candidateform.controls['email'].hasError('required')">
+                                    <small>*Email is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Mobile Number</mat-label>
+                                <input matInput #mobileNo type="tel" placeholder="555-555-1234"
+                                    formControlName="mobileNo" minlength="10" maxlength="10">
+                                <mat-hint align="end">{{mobileNo.value.length}} / 10</mat-hint>
+                                <mat-error *ngIf="candidateform.controls['mobileNo'].hasError('required')">
+                                    <small>*Mobile Number is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select placeholder="Status" formControlName="status">
+                                    <mat-option *ngFor="let status of statusList" value="{{status.statusName}}">
+                                        {{ status.statusName }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="candidateform.controls['status'].hasError('required')">
+                                    <small>*Status is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Select Joining Date</mat-label>
+                                <input matInput [matDatepicker]="picker2" [max]="maxDate" placeholder=" Select Joining Date"
+                                    formControlName="joiningDate">
+                                <mat-hint align="end"><small>MM/DD/YYYY</small></mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker touchUi #picker2></mat-datepicker>
+                                <mat-error *ngIf="candidateform.controls['joiningDate'].hasError('required')">
+                                    <small>*Joining Date is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Location</mat-label>
+                                <input matInput placeholder="Location" formControlName="location">
+                                <mat-error *ngIf="candidateform.controls['location'].hasError('required')">
+                                    <small>*Location is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <mat-radio-group placeholder="Gender" formControlName="gender">
+                                <mat-label><b>Gender</b></mat-label>
+                                <mat-radio-button value="male">Male</mat-radio-button>
+                                <mat-radio-button value="female">Female</mat-radio-button>
+                                <mat-error *ngIf="candidateform.controls['gender'].hasError('required')">
+                                    <small>*Gender is required</small>
+                                </mat-error>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Pin Code</mat-label>
+                                <input matInput #pincode placeholder="Pin Code" type="tel" formControlName="pincode"
+                                    minlength="6" maxlength="6">
+                                <mat-hint align="end">{{pincode.value.length}} / 6</mat-hint>
+                                <mat-error *ngIf="candidateform.controls['pincode'].hasError('required')">
+                                    <small>*Pin Code is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Address</mat-label>
+                                <textarea matInput placeholder="Address" formControlName="address"></textarea>
+                                <mat-error *ngIf="candidateform.controls['address'].hasError('required')">
+                                    <small>*Address is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Skills</mat-label>
+                                <textarea matInput placeholder="Skills" formControlName="skills"></textarea>
+                                <mat-error *ngIf="candidateform.controls['skills'].hasError('required')">
+                                    <small>*Skills is required</small>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><mat-checkbox formControlName="isInternal"
+                                    matTooltip="Check if Candidate is a internal resource">IsInternal</mat-checkbox></p>
+                        </div>
+                    </div>
+                    <mat-card-actions class="actions-container">
+                        <button mat-raised-button color="primary" (click)="onSubmit()" type="submit">Submit</button>
+                        <!-- <button mat-raised-button color="warn" type="cancel">Cancel</button> -->
+
+                    </mat-card-actions>
+                </mat-card-content>
+            </mat-card>
+        </mat-card>
+    </form>
+</div>

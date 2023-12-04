@@ -1,0 +1,46 @@
+<div class="container-fluid">
+
+  <div class="login-container">
+    <div class="center-form">
+      <div class="card">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <div class="header">
+              <h2>Login</h2>
+            </div>
+          </div>
+          <div class="form-group row">
+
+            <mat-form-field appearance="outline" class="col-sm-8">
+              <mat-label>Email Id</mat-label>
+              <input matInput type="text" formControlName="loginName" placeholder="Enter Email Id" required>
+              <mat-error *ngIf="loginForm.get('loginName')?.touched && loginForm.get('loginName')?.invalid">
+                <small>*Email Id is required</small>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group row">
+            <mat-form-field appearance="outline" class="col-sm-8">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="loginPassword" placeholder="Enter Password" required>
+              <mat-error *ngIf="(loginForm.get('loginPassword')?.touched) && loginForm.get('loginPassword')?.invalid">
+                <small>*Login Password is required</small>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row d-flex p-0 m-0">
+            <div class="col-md-6">
+              <button mat-raised-button type="submit"  color="primary">Submit</button>
+            </div>
+            <div class="col-md-6">
+              <a routerLink="/emailverification">Forgot Password ?</a>
+            </div>
+          </div>
+          <p *ngIf="errorMessage" class="alert alert-warning moving-text text-center p-0">{{ errorMessage }}</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
